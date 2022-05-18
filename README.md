@@ -222,4 +222,69 @@ const server = app.listen(3000, () => {
 
 ## graphql
 
-> 这个分支，基于前面的分支，再次打造的一个点，专门针对 graphql 进行的有机的结合，使得我们的Server非常的简单且易懂
+> 这个分支，基于前面的分支，再次打造的一个点，专门针对 graphql 进行的有机的结合，使得我们的Server非常的简单且易懂。首 先我这要说明一点：**Graphql非处的冗长且复杂**，它作为完全不同于SQL的一种查询语言，和规范，你如果回他 需要有一定的经验和踩坑，它的资料页不是很多，至少在国内是比较少。而且理解和编码SQL 都是一个完全不同的东西，因此需要一定的成本去试映这个东西；下面的东西是我个人的见解，如果有不对的地方 ，麻烦各位道友指点，关于graphql 除了官方文档之外，这里有一篇 为比较推荐的博客，欢迎阅读
+
+> 下面的结合 graphql的代码
+
+```js
+const express = require('express') 
+const bodyParser = require('body-parser')
+const prismaClint = require('@prisma/client')
+const { graphqlHTTP } = require('express-graphql');
+
+const { makeExecutableSchema } = require('@graphql-tools/schema')
+// 对于es6 使用  npx babel-node  index.js 去编译 部分esModule, 
+
+
+// -------------init------------- 
+const prisma = new prismaClint.PrismaClient()
+const app = express()
+
+// -------------使用graphql------------- 
+// 1. 定义类型 和 query
+const typeDefs = `
+  type User {
+    email: String!
+    name: String
+  }
+  type Query {
+    allUsers: [ User! ] !
+  }
+  `
+
+// 2. 定义irsolvers 和 与前面对于的query参数
+const resolvers = {
+  Query: {
+    allUsers: () => {
+      return prisma.user.findMany()
+    }
+  }
+}
+
+// 3. 定义 schema 规则
+const schema = makeExecutableSchema({
+  resolvers,
+  typeDefs
+})
+
+
+app.use(bodyParser.json())
+app.use("/graphql", graphqlHTTP({
+  schema
+}))
+
+const server = app.listen(3000, () => {
+  console.log('server start');
+})
+
+```
+
+**不知道为什么，我发现一个非常操蛋的事情，就是很多博客只负责告诉你这么写，然后完全就不管然后了，比如如何用postman去掉，也不管，但是我很良心！请把良心打在评论区！**
+
+```curl
+curl --location --request POST 'http://localhost:3000/graphql' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "query": "query { allUsers { email } }"
+}'
+```
