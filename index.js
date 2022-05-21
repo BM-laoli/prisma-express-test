@@ -1,19 +1,20 @@
-const express = require('express') 
-const bodyParser = require('body-parser')
-const connet = require('./db')
+const express = require('express');
+const bodyParser = require('body-parser');
+const initConnection = require('./db');
+const author = require('./routes/author');
+const book = require('./routes/book');
+const bookInstanceRouter = require('./routes/bookInstance');
 
-const app = express()
+const app = express();
+app.use(bodyParser.json());
 
+// 我们定义一个路由对User 和 Book 做路由的CRUD
+app.use('/author', author);
+app.use('/book', book);
+app.use('/bookInstanceRouter', bookInstanceRouter);
 
-app.use(bodyParser.json())
-
-// 应用这个 中间件
-app.get("/graphql", async (req, res) => {
-  res.json({
-    name: '8888'
-  })
-})
-
-const server = app.listen(3000, () => {
-  console.log('server start');
-})
+initConnection().then(() => {
+  app.listen(3000, () => {
+    console.log('server start');
+  });
+});
