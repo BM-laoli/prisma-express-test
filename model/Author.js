@@ -49,8 +49,36 @@ AuthorSchema.virtual('date_of_death_yyyy_mm_dd').get(function () {
   return DateTime.fromJSDate(this.date_of_death).toISODate(); //format 'YYYY-MM-DD'
 });
 
+// 前置钩子 在 scheme 实例上使用 pre 操作执行前， post 操作执行前后
+// 下面的这些操作执行，都会被监听
+/**
+ init
+​ validate
+​ save
+​ remove
+​ count
+​ find
+​ findOne
+​ findOneAndRemove
+​ findOneAndUpdate
+​ insertMany
+​ update 
+ */
+AuthorSchema.pre('find', function (next) {
+  console.log('我是pre方法1--find');
+  next();
+});
 // 如果你后续需要新增 字段
-// AuthorModel.add({ s:  String })
+AuthorSchema.add({
+  age: {
+    type: Number,
+    required: true,
+    default: 18,
+    min: 16,
+    max: 75,
+    // 初次之外还更多的操做 请查阅官方文档
+  },
+});
 
 // 得到 modal
-module.exports = mongoose.model('Author', AuthorSchema);
+module.exports = mongoose.model('Author', AuthorSchema, 'authors');

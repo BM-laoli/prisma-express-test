@@ -1,8 +1,12 @@
 const authorService = require('../service/authorService');
 
 const create = async (req, res, next) => {
-  const value = await authorService.createAuthor(req.body);
-  res.json(value);
+  try {
+    const value = await authorService.createAuthor(req.body);
+    res.json(value);
+  } catch (error) {
+    res.json(error);
+  }
 };
 
 const query = async (req, res, next) => {

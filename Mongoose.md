@@ -557,11 +557,280 @@ const findAndDelete = async (id) => {
 };
 ```
 
+*上述代码 commit -m:"CRUD"*
+
 ### 前置钩子的运用
+
+> 和上文一样，我们这里只介绍运用, 具体的文档在详细可以看 “理论知识+官方文档”
+
+./model/Author.js
+
+```js
+++++
+// 前置钩子 在 scheme 实例上使用 pre 操作执行前， post 操作执行前后
+// 下面的这些操作执行，都会被监听
+/**
+ init
+​ validate
+​ save
+​ remove
+​ count
+​ find
+​ findOne
+​ findOneAndRemove
+​ findOneAndUpdate
+​ insertMany
+​ update 
+ */
+AuthorSchema.pre('find', function (next) {
+  console.log('我是pre方法1--find');
+  next();
+});
+```
 
 ### 验证
 
+> 我们作为测试程序，给AuthorSchema 添加一个 age 和属性来测试它的验证
+首先我们修改来原来的Author Schema
+
+```js
+// 如果你后续需要新增 字段
+AuthorSchema.add({
+  age: {
+    type: Number,
+    required: true,
+    default: 18,
+    min: 16,
+    max: 75,
+    // 初次之外还更多的操做 请查阅官方文档
+  },
+});
+
+```
+
+然后我们发现我们的代码还是有点危险的，所以我们添加来cath操作
+
+```js
+
+const create = async (req, res, next) => {
+  try {
+    const value = await authorService.createAuthor(req.body);
+    res.json(value);
+  } catch (error) {
+    res.json(error);
+  }
+};
+```
+
 ## 关于关联操作我想说的
 
+> 按照前文描述的，的数据关系图设计，我们需要实现 Book 和 book 的分类 genre
+
+*我们先实现 各自的Modal*
+
+./model/Gene.js
+
+```js
+const mongoose = require('mongoose');
+
+const Schema = mongoose.Schema;
+const GenreSchema = new Schema({
+  name: {
+    type: String,
+    required: true,
+    minLength: 3,
+    maxLength: 100,
+  },
+  url: String,
+});
+
+// Export model.
+module.exports = mongoose.model('Genre', GenreSchema);
+
+```
+
+./model/Book.js
+
+```js
+const mongoose = require('mongoose');
+
+const Schema = mongoose.Schema;
+
+const BookSchema = new Schema({
+  title: {
+    type: String,
+    required: true,
+  },
+  author: {
+    type: Schema.ObjectId,
+    ref: 'Author',
+    required: true,
+  },
+  summary: {
+    type: String,
+    required: true,
+  },
+  isbn: {
+    type: String,
+    required: true,
+  },
+  genre: [
+    {
+      type: Schema.ObjectId,
+      ref: 'Genre',
+    },
+  ],
+  url: String,
+});
+
+// Export model.
+module.exports = mongoose.model('Book', BookSchema);
+
+```
+
+Nice 看起来这些东西你都准备好啦，现在让我们来实现这些对Genre的CRUD，首先我们先实现genre 它相对i独立, 主要还是CV
+
+*我们添加 个字的Service Controller 和 router*
+下面的内容是实现 一些空的代码结构
+
+我们换一个角度，在做业务中可能更加的合适 Service -> controller -> router -前端/tempalte语法
+
+*service*
+
+```js
+const GenreModel = require('../model/Genre');
+
+const createGenre = async (data) => {
+  const res = await GenreModel.create(data);
+  return res;
+};
+
+const queryGenre = async (query) => {
+  const res = await GenreModel.find();
+  return res;
+};
+
+const update = async (id, data) => {
+  const res = await GenreModel.findByIdAndUpdate(id, data);
+  return res;
+};
+
+const findAndDelete = async (id) => {
+  const res = await GenreModel.findByIdAndRemove(id);
+  return res;
+};
+
+module.exports = {
+  createGenre: createGenre,
+  queryGenre: queryGenre,
+  update: update,
+  findAndDelete: findAndDelete,
+};
+
+```
+
+*controller*
+
+```js
+const genreService = require('../service/genreService');
+
+const create = async (req, res, next) => {
+  try {
+    const value = await genreService.createGenre(req.body);
+    res.json(value);
+  } catch (error) {
+    res.json(error);
+  }
+};
+
+const query = async (req, res, next) => {
+  const value = await genreService.queryGenre(req.query);
+  res.json(value);
+};
+
+const update = async (req, res, next) => {
+  const value = await genreService.update(req.query.id, req.body);
+  res.json(value);
+};
+
+const deleteGenre = async (req, res, next) => {
+  const value = await genreService.findAndDelete(req.query.id);
+  res.json(value);
+};
+
+module.exports = {
+  create: create,
+  query: query,
+  update: update,
+  deleteGenre: deleteGenre,
+};
+
+```
+
+*router*
+
+```js
+const express = require('express');
+const generaController = require('../controllers/genraController');
+const generaRouter = express.Router();
+
+// CRUD
+generaRouter.post('/', generaController.create);
+generaRouter.get('/', generaController.query);
+generaRouter.put('/', generaController.update);
+generaRouter.delete('/', generaController.deleteGenre);
+
+module.exports = generaRouter;
+```
+
+经过上面的操作，我们已经能够 完成Genre的CRUD 了
+
+最后我们来哦实现book ，这个时候我们需要把它和author + genre 关联起来
 > 需要使用聚合操作 来实现 关联字段的查询
+
+实际上，我们最常用到的场景 就是 关联查询 和关联修改
+
+*service*
+./service/bookService.js
+
+```js
+// 一般来说，我们有两种方式去去处理关联数据，
+// 1.是使用mongoose自带额关联查询（需要定义外健=比如ObjectID ref这种）,而且外建必须要在主表中
+
+const queryBook = async (query) => {
+  BookModel.find().exec();
+  // 子表关联主表查询，populate里面为子表外键
+  const res = await BookModel.find()
+    .populate('author')
+    .populate('genre')
+    .exec();
+  return res;
+};
+
+// 2. 使用聚合查询（聚合查询是一个骚操作，可操作性很高，会来聚合其他都很简单没有什么处理不了的问题在mongodb 这一块）
+  // 推荐 用法 ( 假设我们没有关联 ，我们我们可以用lookup 进行左关联 ，类似连表查询)
+
+const queryBook = async (query) => {
+  BookModel.find().exec();
+  // 推荐 用法 ( 假设我们没有关联 ，我们我们可以用lookup 进行左关联 ，类似连表查询)
+  const res = await BookModel.aggregate([
+    {
+      $lookup: {
+        // 左连接
+        from: 'authors', // 关联到 author 表
+        localField: 'author', // book 表关联的字段
+        foreignField: '_id', // order 表关联的字段
+        as: 'names',
+      },
+    },
+  ]).exec();
+  return res;
+};
+
+```
+
+关于聚合查询 官方有完整的文章请去查阅，我借鉴来一个CSDN的文章
+<https://blog.csdn.net/u011113654/article/details/80353013>
 <https://www.cnblogs.com/showtime813/p/4564157.html>
+
+> 最后，本阶段最终代码在 -commiit -m "relation"

@@ -1,30 +1,11 @@
 const express = require('express');
-
-const book = express.Router();
+const bookController = require('../controllers/bookController');
+const bookRouter = express.Router();
 
 // CRUD
-book.post('/', async (req, res) => {
-  res.json({
-    message: 'create',
-  });
-});
+bookRouter.post('/', bookController.create);
+bookRouter.get('/', bookController.query);
+bookRouter.put('/', bookController.update);
+bookRouter.delete('/', bookController.deleteBook);
 
-book.get('/', async (req, res) => {
-  res.json({
-    message: 'get',
-  });
-});
-
-book.put('/', async (req, res) => {
-  res.json({
-    message: 'delete',
-  });
-});
-
-book.delete('/:id', async (req, res) => {
-  res.json({
-    message: `delete==> ${req.params.id}`,
-  });
-});
-
-module.exports = book;
+module.exports = bookRouter;
