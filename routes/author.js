@@ -1,30 +1,11 @@
 const express = require('express');
-
+const AuthorController = require('../controllers/authorController');
 const author = express.Router();
 
 // CRUD
-author.post('/', async (req, res) => {
-  res.json({
-    message: 'create',
-  });
-});
-
-author.get('/', async (req, res) => {
-  res.json({
-    message: 'get',
-  });
-});
-
-author.put('/', async (req, res) => {
-  res.json({
-    message: 'delete',
-  });
-});
-
-author.delete('/:id', async (req, res) => {
-  res.json({
-    message: `delete==> ${req.params.id}`,
-  });
-});
+author.post('/', AuthorController.create);
+author.get('/', AuthorController.query);
+author.put('/', AuthorController.update);
+author.delete('/', AuthorController.deleteAuthor);
 
 module.exports = author;

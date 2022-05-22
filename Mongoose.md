@@ -146,6 +146,8 @@ Tank.create({ size: 'small' }, function (err, small) {
 // 之后所有关于Tank 的CURD 全部通过这个实例来操作 这点需要注意
 ```
 
+**上面的东西远远不够，记得做一个合格的🧱 工具人，后续需要优化**
+
 ## 实战指南
 
 ### 连接MongoDB 和初始化的一些设计
@@ -279,11 +281,285 @@ initConnection().then(() => {
 
 *上面的东西 在commit :"connection & init"可以看到*
 
+### 创建模型
+
+> 上述我们创建了 mongodb的连接 和基础代码，现在我们需要构建 模型,
+
+构建模型前 ，我们需要讨论 它的一些参数和方法
+首先mongo支持的类型如下
+
+String 定义字符串
+Number 定义数字
+Date 定义日期
+Buffer 定义二进制
+Boolean 定义布尔值
+Mixed 定义混合类型
+ObjectId 定义对象ID
+Array 定义数组
+
+*更多细节show your code*
+
+```js
+const mongoose = require('mongoose');
+// 使用Schema
+const Schema = mongoose.Schema;
+
+// 定义Schema 切得到 Schema实例
+const UserSchema = new Schema({
+  name: String,
+  title: String,
+  unicode: {
+    type: String,
+    unique: true //只需要 unicode 为唯一值
+  } ,
+  family_name: String,
+  first_name: {
+    type: String,
+    required: true,
+    maxLength: 100,
+    default:'goodName' // 默认值
+  },
+}, {
+  // 自动给你加上 createdAt，updatedA t这两个字段，
+  timestamps:true 
+})
+
+// 通过Schema 实例 获得Modal ( 后续的操作都在这里进行 )
+const  UserSchema = mongoose.model('User', UserSchema);
+
+// 附加一些验证和 额外的管道操作
+// 自动生成全名
+UserSchema.virtual('name').get(function() {
+  return this.family_name + ', ' + this.first_name;
+});
+
+
+// 如果你需要关联另一个Model
+const LocationInfoSchema = new Schema({
+    city: String
+})
+const LocationInfoModal = mongoose.model('LocationInfo', LocationInfoSchema);
+
+UserSchema.add({
+  locationInfo: {
+      type: Schema.ObjectId,
+       ref: 'LocationInfo',
+      required: true 
+  }
+})
+
+// AuthModal.create({ name: "000" })
+```
+
+1. 首先我们创建相对独立的 schema 比如author
+
+*./model/Author.js*
+
+```js
+const mongoose = require('mongoose');
+const { DateTime } = require('luxon'); //for date handling
+
+// 使用Schema
+var Schema = mongoose.Schema;
+
+// 得到AuthSchema
+const AuthorSchema = new Schema({
+  first_name: {
+    type: String,
+    required: true,
+    maxLength: 100,
+  },
+  family_name: {
+    type: String,
+    required: true,
+    maxLength: 100,
+  },
+  date_of_birth: {
+    type: Date,
+  },
+  date_of_death: {
+    type: Date,
+  },
+});
+
+// 定义一些虚拟 key ，一般来说你用不到哈
+AuthorSchema.virtual('lifespan').get(function () {
+  var lifetime_string = '';
+  if (this.date_of_birth) {
+    lifetime_string = DateTime.fromJSDate(this.date_of_birth).toLocaleString(
+      DateTime.DATE_MED,
+    );
+  }
+  lifetime_string += ' - ';
+  if (this.date_of_death) {
+    lifetime_string += DateTime.fromJSDate(this.date_of_death).toLocaleString(
+      DateTime.DATE_MED,
+    );
+  }
+  return lifetime_string;
+});
+
+AuthorSchema.virtual('date_of_birth_yyyy_mm_dd').get(function () {
+  return DateTime.fromJSDate(this.date_of_birth).toISODate(); //format 'YYYY-MM-DD'
+});
+
+AuthorSchema.virtual('date_of_death_yyyy_mm_dd').get(function () {
+  return DateTime.fromJSDate(this.date_of_death).toISODate(); //format 'YYYY-MM-DD'
+});
+
+// 如果你后续需要新增 字段
+// AuthorModel.add({ s:  String })
+
+// 得到 modal
+module.exports = mongoose.model('Author', AuthorSchema);
+```
+
+其他更多的模型操作是一样的 这里不详细介绍了，由于是演示项目，其他的modal 没有加 virtual
+
 ### 创建create
+
+> 在上一讲中，我们创建了模型，现在我们需要调整一下我们的项目结构，我们需要新增一个 controllers 文件夹，因为我们需要实施 controllers - service 类似的结构，这对大型项目是有好处的，然后还对 数据库..db/index.js 做了一下小修复
+
+我们从 req 经过的路径开始构建，http --> router -> controller ->  service
+
+*router*
+./router/author.js
+
+```js
+const express = require('express');
+const AuthorController = require('../controllers/authorController');
+const author = express.Router();
+// CRUD
+author.post('/', AuthorController.create);
+++++
+module.exports = author;
+```
+
+*controller*
+./controllers/authorController
+
+```js
+const { createAuthor } = require('../service/authorService');
+
+const AuthorController = {
+  create: async (req, res, next) => {
+    const value = await createAuthor(req.body);
+    res.json(value);
+  },
+};
+
+module.exports = AuthorController;
+
+```
+
+*service*
+./service/authorService
+
+```js
+const AuthorModel = require('../model/Author');
+
+const createAuthor = async (data) => {
+  // Model.create(doc(s), [callback])
+  const res = await AuthorModel.create(data); // AuthorModel.save(data); 也可以
+  return res;
+};
+
+module.exports = {
+  createAuthor: createAuthor,
+};
+
+```
+
+看就是这样简单！除了create 还有很多 inset的操作，请看官方文档哈, 本文不一一列举了
 
 ### 查询query
 
+> 查询是非常简单, 我们把理论的东西运用下来就可以啦
+我们从 req 经过的路径开始构建，http --> router -> controller ->  service
+*router*
+
+```js
+++++ ( 此处省略重复内容 )
+author.get('/', AuthorController.query);
+++++
+```
+
+*controller*
+
+```js
+++++ ( 此处省略重复内容 )
+const query = async (req, res, next) => {
+  const value = await authorService.queryAuthor(req.query);
+  res.json(value);
+};
+```
+
+*service*
+
+```js
+const queryAuthor = async (query) => {
+  // Model.find(conditions, [projection], [options], [callback])
+  // const res = await AuthorModel.find(); // 查所有
+  // const res = await AuthorModel.findById(query.id); // 查id
+  // const res = await AuthorModel.find({ first_name: /a/ }); // 带其他条件查询 查询一条且name 含有a
+  // const res = await AuthorModel.find().$where(function () {
+  //   return this.first_name === 'Joney' || this.first_name === 'Aoda';
+  // }); // 高级复杂查询 $where 使用js 函数
+  // const res = await AuthorModel.findById(query.id, { first_name: 1, _id: 0 }); // 返回指定字段
+
+  // 让我们使用 更加高高级的操作
+  // sort 排序 skip跳过    limit 限制 select 显示字段 exect 执行 count 执行  distinct 去重
+  const res = await AuthorModel.find().skip(1).exec();
+  return res;
+};
+```
+
 ### 更新和删除update 和delete
+
+> 我们看看 update 操作, 注意在 本次实战中，我们不去搞很多复杂操作, 复杂操作 自己去看mongose官方文档,比如 update updateOne UpdateMany findyByIdAndUpdate等...
+
+我们从 req 经过的路径开始构建，http --> router -> controller ->  service
+
+*router*
+
+```js
+author.put('/', AuthorController.update);
+author.delete('/', AuthorController.deleteAuthor);
+```
+
+*controller*
+
+```js
+
+const update = async (req, res, next) => {
+  const value = await authorService.update(req.query.id, req.body);
+  res.json(value);
+};
+
+const deleteAuthor = async (req, res, next) => {
+  const value = await authorService.findAndDelete(req.query.id);
+  res.json(value);
+};
+```
+
+*service*
+
+```js
+
+const update = async (id, data) => {
+  const res = await AuthorModel.findByIdAndUpdate(id, data);
+  return res;
+};
+
+const findAndDelete = async (id) => {
+  const res = await AuthorModel.findByIdAndRemove(id);
+  return res;
+};
+```
+
+### 前置钩子的运用
+
+### 验证
 
 ## 关于关联操作我想说的
 
