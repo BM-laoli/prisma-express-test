@@ -1,12 +1,11 @@
 const BookModel = require('../model/Book');
-const AuthorModel = require('../model/Author');
+
 const createBook = async (data) => {
   const res = await BookModel.create(data);
   return res;
 };
 
 const queryBook = async (query) => {
-  BookModel.find().exec();
   //子表关联主表查询，populate里面为子表外键
   const res = await BookModel.find()
     .populate('author')

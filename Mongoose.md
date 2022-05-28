@@ -22,7 +22,7 @@ Document ——Document表示集合中的具体文档，相当于collection中�
 
 Schema 是一个构造函数 我们需要new 一个 schema实例 去掉用 add pre post 这些方法,
 
-### 构造参数
+1.Schema 的 构造参数
 
 > 官方文档有两个参数 这里我不展开来，我们只取用到的东西
 new Schema( definition ,[options])
@@ -38,7 +38,7 @@ const schemaInstant = new Schema(
   {})
 ```
 
-### 方法说明
+2.Schema 方法说明
 
 add( object|Schema, prefix, cb )
 Schema 创建好之后 追加字段
@@ -147,6 +147,154 @@ Tank.create({ size: 'small' }, function (err, small) {
 ```
 
 **上面的东西远远不够，记得做一个合格的🧱 工具人，后续需要优化**
+
+目前MongoDB 所能够支持的类型
+String ，Number， Date，Buffer，Boolean，Mixed，ObjectId，Array
+
+### Create
+
+> 主要的方法如下：
+
+1. save
+Model.prototype.save([options], [options.safe], [options.validateBeforeSave], [fn])
+
+2. create
+Model.create(doc(s), [callback])
+
+3. InsertMany
+Model.insertMany(doc(s), [options], [callback])
+
+*具体的样子如下*
+
+```js
+someModal.save({name:"小明",grades:68})
+someModal.create({name:"小明",grades:68})
+someModal.insertMany({name:"小明",grades:68},{name:"小芳",grades:94})
+```
+
+### Retrieve
+
+> 主要方法如下
+
+1. find
+Model.find(conditions, [projection], [options], [callback])
+
+2.findById
+Model.findById(id, [projection], [options], [callback])
+
+3. findOne
+Model.findOne([conditions], [projection], [options], [callback])
+
+4. 复杂的操作符
+
+```md
+$where        直接指定 js函数为查询起
+
+$or　　　　 或关系
+$nor　　　 或关系取反
+$gt　　　　 大于
+$gte　　　 大于等于
+$lt　　　　 小于
+$lte　　　 小于等于
+$ne　　　　 不等于
+$in　　　　 在多个值范围内
+$nin　　　 不在多个值范围内
+$all　　　 匹配数组中多个值
+$regex　　 正则，用于模糊查询
+$size　　　 匹配数组大小
+$maxDistance　 范围查询，距离（基于LBS）
+$mod　　　　 取模运算
+$near　　　 邻域查询，查询附近的位置（基于LBS）
+$exists　　 字段是否存在
+$elemMatch　 匹配内数组内的元素
+$within　　　 范围查询（基于LBS）
+$box　　　　 范围查询，矩形范围（基于LBS）
+$center　　　 范围醒询，圆形范围（基于LBS）
+$centerSphere　范围查询，球形范围（基于LBS）
+$slice　　　　 查询字段集合中的元素（比如从第几个之后，第N到第M个元素
+
+```
+
+5. 查询方法
+sort 排序
+skip 跳过
+limit 限制
+select 显示字段
+exect 执行
+count 计数
+distinct 去重
+
+```js
+
+someModal.find()
+
+someModal.find({
+  grades:{$gte:60}  // grades > 60 
+}, {
+  name:1, // 是否返回 name
+  _id:0 // ) _id不返回
+})
+
+// 跳过前两条
+someModal.find(
+  null,null,{skip:2}
+)
+
+someModal.findById(id)
+someModal.findOne(id)
+someModal.findOne({
+  $where:function () { // 注意不能用 => 函数 会导致this的丢失
+    retrun this.grades == 1 
+  }
+})
+
+// 依据 test 字段的值 ，从小到大 生序
+someModal.find().sort('test').exec((err,docs)=>{
+  console.log(docs)
+})
+// 降序
+someModal.find().sort('-test').exec((err,docs)=>{
+  console.log(docs)
+})
+
+```
+
+### Update
+
+> 方法如下
+
+1. update
+Model.update(conditions, doc, [options], [callback])
+
+1. updateOne
+Model.updateOne(conditions, doc, [options], [callback])
+
+1. updateMany
+Model.updateMany(conditions, doc, [options], [callback])
+
+2. findByIdAndUpdate
+Model.findByIdAndUpdate([conditions], [update], [options], [callback])
+
+*一些细节*
+
+```js
+// 都是一样的用法 这里不详细的展开说明来
+someModal.update({name:'小明'},{$set:{test:34}} ).exec() //set 把某值改成某值
+
+someModal.findByIdAndUpdate(id,data)
+```
+
+### Delete
+
+> 方法如下, 我们讲一个就好啦，讲一个最常用的，
+
+```js
+const res = await BookModel.findByIdAndRemove(id);
+```
+
+### 总结
+
+> 上面我们只是非常非常的简单，说啦一些 mongoose 的内容，定位的快速入门，如果你希望深入了解，可以去mongoDB 官方文档 和 mongoose 官方文档
 
 ## 实战指南
 
@@ -826,7 +974,6 @@ const queryBook = async (query) => {
   ]).exec();
   return res;
 };
-
 ```
 
 关于聚合查询 官方有完整的文章请去查阅，我借鉴来一个CSDN的文章
@@ -834,3 +981,346 @@ const queryBook = async (query) => {
 <https://www.cnblogs.com/showtime813/p/4564157.html>
 
 > 最后，本阶段最终代码在 -commiit -m "relation"
+
+## Node的部署 -性能和稳定性
+
+本小节的注意，第一件事：“完善我们的服务”，最后我把 BookInstance 的东西全部写完啦，
+
+> 感觉这一讲好像太多啦，不是我们的主题，但是 我们的目标：“完成完整的Node项目”，包括了，开发和部署 ，理论上你应该还需要包括CI，但是CI 我之前的文章由详细说过，你可以自己去操作，我们现在重点来讲一下 ，Node 的压力测试 和部署, ( 要知道 ，一个可以达到生成标准Nodejs service 程序 可能不止我们说的这些，但我尽量的涵盖每一个重要的点 )，接下来的内容更加偏向devops的世界
+
+### 生产最佳实践：性能和可靠性
+
+> 这个是express 官方为我们提供的一些有用的建议,  我们先来看看哈, 这里面的内容主要是分了两个部分，一个编码需要注意的地方，和部署需要注意的地方，<https://expressjs.com/en/advanced/best-practice-performance.html#ensure-your-app-automatically-restarts>
+
+#### 编码需要的地方
+
+- 使用 gzip 压缩
+- 不要使用同步函数
+- 正确记录
+- 正确处理异常
+
+```js
+// ------------ 使用gzip 进行 传输数据的压缩🗜️ ，但是一般来说 Nginx等会帮我们处理这个事，
+const compression = require('compression')
+const express = require('express')
+const app = express()
+app.use(compression())
+// 只需要向上面一样做就好啦，运用这个 compression 这个中间件就能处理了
+
+// ------------  不要使用同步方法，你这样操作会导致堵塞
+// 这里主要是指，虽然在Nodej中很多的API 提供了Sync同步的方法，但是我们还是不推荐的，尽量使用异步 去处理
+
+
+// ------------ 正确的记录
+// 实际上我们需要记录日志，主要是希望看到 服务上线之后，如果有异常我们能准备了其发生原因然后准确的修复它，如果没有日志我们会很被动,
+// 一般来说 一些同步的方法 是不建议 使用的比如 console之类的东西，最常用的解决方案是用一成熟的lib 去做log记录，比如 winston
+
+
+// ------------正确处理异常
+// 有时候，我们的程序依然必不可免的出现异常，在 任何程序中，你都应该妥善的处理他们，不管你是client 还是service 你都要处理他们，你可不希望 它影响你最终的结果，在express中我们有这样的处方
+// 对于premise 记得添加 catch 对于async 方式的，需要try catch，并且把error 向外传递, 而且你应遵循 Nodejs中的原则：“错误优先” 需要注意⚠️ 你最不应该做的事情是 去监听 uncaughtException 会改变遇到异常的进程的默认行为容易导致：“僵尸进程”, 下面的处理方式我们认为是好的
+app.get('/search', (req, res) => {
+  // Simulating async operation
+  setImmediate(() => {
+    const jsonStr = req.query.params
+    try {
+      const jsonObj = JSON.parse(jsonStr)
+      res.send('Success')
+    } catch (e) {
+      res.status(400).send('Invalid JSON string')
+    }
+  })
+})
+
+app.get('/', (req, res, next) => {
+  // do some sync stuff
+  queryDb()
+    .then((data) => makeCsv(data)) // handle data
+    .then((csv) => { /* handle csv */ })
+    .catch(next)
+})
+
+app.use((err, req, res, next) => {
+  // handle error
+})
+
+
+const wrap = fn => (...args) => fn(...args).catch(args[2])
+
+app.get('/', wrap(async (req, res, next) => {
+  const company = await getCompanyById(req.query.id)
+  const stream = getLogoStreamById(company.id)
+  stream.on('error', next).pipe(res)
+}))
+```
+
+#### 部署需要注意的地方
+
+- 将 NODE_ENV 设置为“生产”
+- 确保您的应用程序自动重启
+- 在集群中运行您的应用程序
+- 缓存请求结果
+- 使用负载均衡器
+- 使用反向代理
+
+> 这里更多的关注 代码之外的事情，比如自动重启等等
+
+1. 我们先来做第一件事情，设置环境
+
+> 经过官方 验证 环境设置非常重要 NODE_ENV = "production"时 是普通 模式 性能下的 三倍
+
+ 我们可以这样 设置 package.json
+
+```json
+"scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "export NODE_ENV='development' && node app.js",
+    "build": "export NODE_ENV='production' && node app.js"
+}
+```
+
+2. 确保您的应用程序自动重启
+3. 在集群中运行您的应用程序
+
+> 这两个操作我们都可以在 nodejs 进程管理工具 pm2 上完成，非常的简单，后文中我们介绍了具体的实现细节，pm2官方文档 <https://pm2.keymetrics.io/docs/usage/application-declaration/>
+
+```shell
+npm i  -g pm2
+# int 一下，生成 一个配置
+pm2 init simple 
+```
+
+构建配置文件, 在项根目录 ecosystem.config.js
+
+```js
+// 名称任意，按照个人习惯来
+module.exports = {
+  apps: [
+    {
+       name   : "app1",
+        script : "./app.js",
+        max_restarts: 20, // 设置应用程序异常退出重启的次数，默认15次（从0开始计数）
+        cwd: "./", // 应用程序所在的目录
+        exec_mode: "cluster", // 应用程序启动模式，这里设置的是 cluster_mode（集群），默认是 fork
+        log_date_format:"YYYY-MM-DD HH:mm Z", // 日志时间格式
+        out_file:"./logOut.log",
+        instances：2, // 启动两个实例 
+        env_production: {
+          NODE_ENV: "production"
+        },
+        env_development: {
+          NODE_ENV: "development"
+        }
+      }
+  ],
+};
+```
+
+```shell
+pm2 start ecosystem.config.js
+```
+
+对于服务器自动重启后，要自动运行node服务，需要依赖服务的编排等功能，我们也可以人肉的设置一些配置,
+Systemd 是一个 Linux 系统和服务管理器。大多数主要的 Linux 发行版都采用 systemd 作为其默认的 init 系统。
+
+systemd 服务配置文件称为单元文件，文件名以.service. 这是一个直接管理 Node 应用程序的示例单元文件。替换<angle brackets>您的系统和应用程序中包含的值：
+具体的参考手册是==> <https://www.freedesktop.org/software/systemd/man/systemd.unit.html>
+
+```
+[Unit]
+Description=<Awesome Express App>
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/node </projects/myapp/index.js>
+WorkingDirectory=</projects/myapp>
+
+User=nobody
+Group=nogroup
+
+# Environment variables:
+Environment=NODE_ENV=production
+
+# Allow many incoming connections
+LimitNOFILE=infinity
+
+# Allow core dumps for debugging
+LimitCORE=infinity
+
+StandardInput=null
+StandardOutput=syslog
+StandardError=syslog
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+```
+
+> 实际上，上面的内容 Systemd 相关的你了解就好啦，pm2 也提供了快捷的设置方式
+
+```shell
+# 设置pm2开机自启
+#（可选项：ubuntu, centos, redhat, gentoo, systemd, darwin, amazon）
+# 然后按照提示需要输入的命令进行输入, 最后保存设置
+pm2 startup centos 
+pm2 save
+```
+
+4. 缓存请求结果
+
+> 我们依然可以使用Nginx 来处理请求缓存！注意是Http的请求缓存 和redis 没有关系！文档地址在这里 <https://serversforhackers.com/c/nginx-caching>
+
+5. 使用负载均衡器
+
+> 关于负载均衡，我们可以部署多个node service 实例，然后使用Nginx 去处理。也可以使用 pm2 ，对没错pm2 自带有这个功能，不需要特殊设置
+
+6. 使用反向代理
+
+> 采用微服务 架构下，不同的服务之间要频繁的额通信，我们使用反向代理，使得他们的掉用在“内网”进行，或者在同一k8s 集群下进行，会大幅度提升 通信效率。最常用工具依然是Nginx
+
+<https://www.digitalocean.com/community/tutorials/an-introduction-to-haproxy-and-load-balancing-concepts>
+
+#### 实际操作
+
+> 好以上是理论知识，现在我们啦实战 ，
+
+1. 首先我们需要加上gzip 等压缩，但是如果你使用nginx 这个东西也可以省略不写，nginx 自带就能处理，而且简单。我们这儿不用nginx，但是在实际项目产线必定80%就是Nginx, 虽然你不需要用，但是你得知道它怎么用
+
+```js
+++++
+const compression = require('compression');
+++++
+const app = express();
+app.use(compression());
+```
+
+2. 正确的处理日志
+
+> 我们使用 winston，当然我在nest 文章中使用的是log4j，当然我们也可以使用 winston, 如果我们使用pm2 那么这个实际上也是可选的，但是你如果希望自己处理一些业务什么上的log 那么自定义的这种东西还是有意义的. 关于winston 我们可以去看官方文档，由于我们这个项目 没有复杂的业务，我们只是简单的记录了一些路由日志和错误日志 而已
+
+```js
+const winston = require('winston');
+
+const logger = winston.createLogger({
+  level: 'info',
+  format: winston.format.json(),
+  defaultMeta: { service: 'user-service' },
+  transports: [
+    new winston.transports.File({ filename: 'log/error.log', level: 'error' }),
+    new winston.transports.File({ filename: 'log/combined.log' }),
+  ],
+});
+
+module.exports = {
+  logger: logger,
+};
+
+```
+
+我们先定义，后面在使用
+
+3. 正确的处理 异常
+
+> 我们结合 上面讲到的logger 就能很完美的处理 程序中的一些异常情况
+
+```js
+// 在appjs中 给定一个路由 全局处理 未捕获的异常
+// 设置一个路由，如果前面的都有问题，就到这里来处理错误
+app.use((err, req, res, next) => {
+  logger.error({
+    level: 'error',
+    message: err.message,
+  });
+  res.json(err);
+});
+
+// 在utils 下定义一个wrap 文件减少 try 冗余代码
+module.exports = {
+  // 一个包装工具 🔧可以马上把 路由函数的的error 处理到next 去，
+  // 减少try 的冗余代码
+  wrap:
+    (fn) =>
+    (...args) =>
+      fn(...args).catch(args[2]),
+};
+
+// 在每个路由处理中 都加上 wrap，一档有err 它会自动next，最后走到我这个err 路由中
+const express = require('express');
+const generaController = require('../controllers/genraController');
+const generaRouter = express.Router();
+const { wrap } = require('../utils/');
+
+// CRUD
+generaRouter.post('/', wrap(generaController.create));
+generaRouter.get('/', wrap(generaController.query));
+generaRouter.put('/', wrap(generaController.update));
+generaRouter.delete('/', wrap(generaController.deleteGenre));
+
+module.exports = generaRouter;
+
+```
+
+4. 修改环境
+
+> 对于修改环境 ，我们可以很简单的咋package中实现, 但是我们可以使用pm2 ，来更好操作
+
+```json
+"start": "export NODE_ENV='development' && node app.js ",
+"build": "export NODE_ENV='production' && node app.js "
+```
+
+5. 使用pm2
+
+> 首先我以我的这个小demo项目，小mac 机器做为演练环境
+
+```shell
+# 设置pm2 nodejs 本体的进程 ，在系统重启的时候自动重启
+npm i -g pm2 
+# 设置为开启自启动
+pm2 startup
+pm2 save
+# pm2 init 生成config 文件
+pm2 init simple
+
+# 编辑这个最简单的文件
+
+```
+
+```js
+module.exports = {
+  apps: [
+    {
+      name: 'app1',
+      script: './app.js',
+      max_restarts: 20, // 设置应用程序异常退出重启的次数，默认15次（从0开始计数）
+      cwd: './', // 应用程序所在的目录
+      exec_mode: 'cluster', // 应用程序启动模式，这里设置的是 cluster_mode（集群），默认是 fork 我们后面就讲 这是一些多进程的方式
+      log_date_format: 'YYYY-MM-DD HH:mm Z', // 日志时间格式
+      out_file: './log/pm2.log',
+      instances: 2, // 启动两个实例
+      env_production: {
+        NODE_ENV: 'production',
+      },
+      env_development: {
+        NODE_ENV: 'development',
+      },
+    },
+  ],
+};
+
+```
+
+```shell
+# 最后直接去run 就好啦，当然你可以把这个东西写在你的 script中
+pm2 start ecosystem.config.js
+```
+
+6. 负载均衡 方向代理 http缓存
+
+> 关于负载均衡这个话题，我们完全可以是哟Nginx去完成，但是使用pm2 也是ok的，怎么说呢，这个话题比较大且空，所以这里不过过度介绍啦，基本上 负载均衡 这件事 pm2 也是内置且自动管理的。在上述的一些优化中，我们讨论了 有关部署的话题 基本上一句话都离不开pm2 ，比如：“修改环境变量pm2 能做”、“负载均衡和缓存pm2 也能处理” 处理异常和自动弄重启pm2 也能处理，....很多事情有关Node 部署和运维的pm2 都可以处理。所以我们有机会 ，详细的介绍一下，现在你只需要了解这样一件事**你的Node 写好啦丢配置好一些配置，直接丢给pm2处理** 就可了。
+
+*上述的代码在commi-m "feature：优化和pm2部署配置"*
+
+### 压力测试/和多线程调优 - 打造一个持续且健壮的程序
+
+> 压力测试/和多线程调优 - 打造一个持续且健壮的程序.

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const { DateTime } = require('luxon'); //for date handling
-
+const { logger } = require('../log');
 // 使用Schema
 const Schema = mongoose.Schema;
 
@@ -65,7 +65,10 @@ AuthorSchema.virtual('date_of_death_yyyy_mm_dd').get(function () {
 ​ update 
  */
 AuthorSchema.pre('find', function (next) {
-  console.log('我是pre方法1--find');
+  logger.info({
+    level: 'info',
+    message: 'find update',
+  });
   next();
 });
 // 如果你后续需要新增 字段

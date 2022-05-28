@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const dbConfig = require('./config');
-
+const { logger } = require('../log');
 const initConnection = async () => {
   // 注意mongoDB 的数据库密码 只对当前的库有效！
   // const connection = mongoose.connect("mongodb://admin:123456@192.168.101.10:27017/admin",
@@ -27,6 +27,10 @@ const initConnection = async () => {
 
     mongoose.connection.on('error', (err) => {
       reject(err);
+      logger({
+        level: 'error',
+        message: '数据库没有连接成功',
+      });
     });
   });
 };
