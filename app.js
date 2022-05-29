@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const compression = require('compression');
 
-const { logger } = require('./log');
+const { logger } = require('./utils/logger');
 const initConnection = require('./db');
 const author = require('./routes/author');
 const book = require('./routes/book');
@@ -30,6 +30,6 @@ app.use((err, req, res, next) => {
 
 initConnection().then(() => {
   app.listen(3000, () => {
-    console.log('server start');
+    console.log('server start in 3000');
   });
 });

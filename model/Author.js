@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const { DateTime } = require('luxon'); //for date handling
-const { logger } = require('../log');
+const { logger } = require('../utils/logger');
 // 使用Schema
 const Schema = mongoose.Schema;
 

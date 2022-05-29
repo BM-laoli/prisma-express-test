@@ -1,12 +1,8 @@
 const bookInstanceService = require('../service/bookInstanceService');
 
 const create = async (req, res, next) => {
-  try {
-    const value = await bookInstanceService.create(req.body);
-    res.json(value);
-  } catch (error) {
-    res.json(error);
-  }
+  const value = await bookInstanceService.create(req.body);
+  res.json(value);
 };
 
 const query = async (req, res, next) => {

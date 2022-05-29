@@ -1,12 +1,8 @@
 const genreService = require('../service/genreService');
 
 const create = async (req, res, next) => {
-  try {
-    const value = await genreService.createGenre(req.body);
-    res.json(value);
-  } catch (error) {
-    res.json(error);
-  }
+  const value = await genreService.createGenre(req.body);
+  res.json(value);
 };
 
 const query = async (req, res, next) => {
