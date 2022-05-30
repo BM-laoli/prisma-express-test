@@ -641,3 +641,11 @@ if(cluster.isMaster){
 > 以上的内容我们全部提交在  git commit -m"POA"   中，需要具体指出的是，一般来说我们都是用pm2去操作多线程，如果你有特殊需求采取自己控制线程
 
 ## 单元测试
+
+> 对于Nodejs来说，我们使用JEST 这个测试框架来测试, 我参考了这个位置<https://quanru.github.io/2018/02/22/%E4%BD%BF%E7%94%A8%20Jest%20%E6%B5%8B%E8%AF%95%20Node.js/>，对于源码实现感兴趣的同学可以来这里：<https://quanru.github.io/2018/02/22/%E4%BD%BF%E7%94%A8%20Jest%20%E6%B5%8B%E8%AF%95%20Node.js/>
+
+> 在本例子中，我们将会实现 服务启动测试，controller测试，service测试 middleware测试
+
+1. 第一步我们需要 整理目前的项目结构，我们把上面的东西都清理一下，只保留我们项目必要的业务文件，其他的demo文件全部删除掉，
+
+<!-- 2.  -->
