@@ -1,16 +1,16 @@
 > 这里主要讲两个方面的内容 **性能优化** **单元测试**
 
-## Node的部署 -性能和稳定性
+# Node的部署 -性能和稳定性
 
-本小节的注意，第一件事：“完善我们的服务”，最后我把 BookInstance 的东西全部写完啦，
+本小节的注意，第一件事：“完善我们的服务”，最后我把 BookInstance 的东西全部写完
 
 > 感觉这一讲好像太多啦，不是我们的主题，但是 我们的目标：“完成完整的Node项目”，包括了，开发和部署 ，理论上你应该还需要包括CI，但是CI 我之前的文章由详细说过，你可以自己去操作，我们现在重点来讲一下 ，Node 的压力测试 和部署, ( 要知道 ，一个可以达到生成标准Nodejs service 程序 可能不止我们说的这些，但我尽量的涵盖每一个重要的点 )，接下来的内容更加偏向devops的世界
 
-### 生产最佳实践：性能和可靠性
+## 生产最佳实践：性能和可靠性-理论知识
 
 > 这个是express 官方为我们提供的一些有用的建议,  我们先来看看哈, 这里面的内容主要是分了两个部分，一个编码需要注意的地方，和部署需要注意的地方，<https://expressjs.com/en/advanced/best-practice-performance.html#ensure-your-app-automatically-restarts>
 
-#### 编码需要的地方
+### 编码需要的地方
 
 - 使用 gzip 压缩
 - 不要使用同步函数
@@ -72,7 +72,9 @@ app.get('/', wrap(async (req, res, next) => {
 }))
 ```
 
-#### 部署需要注意的地方
+### 部署需要注意的地方
+
+> 这里更多的关注 代码之外的事情，比如自动重启等等
 
 - 将 NODE_ENV 设置为“生产”
 - 确保您的应用程序自动重启
@@ -81,13 +83,7 @@ app.get('/', wrap(async (req, res, next) => {
 - 使用负载均衡器
 - 使用反向代理
 
-> 这里更多的关注 代码之外的事情，比如自动重启等等
-
-1. 我们先来做第一件事情，设置环境
-
-> 经过官方 验证 环境设置非常重要 NODE_ENV = "production"时 是普通 模式 性能下的 三倍
-
- 我们可以这样 设置 package.json
+1. 我们先来做第一件事情，设置环境。经过官方 验证 环境设置非常重要 NODE_ENV = "production"时 是普通 模式 性能下的 三倍，我们可以这样 设置 package.json
 
 ```json
 "scripts": {
@@ -98,9 +94,8 @@ app.get('/', wrap(async (req, res, next) => {
 ```
 
 2. 确保您的应用程序自动重启
-3. 在集群中运行您的应用程序
-
-> 这两个操作我们都可以在 nodejs 进程管理工具 pm2 上完成，非常的简单，后文中我们介绍了具体的实现细节，pm2官方文档 <https://pm2.keymetrics.io/docs/usage/application-declaration/>
+3. 在集群中运行您的应用程序：
+这两个操作我们都可以在 nodejs 进程管理工具 pm2 上完成，非常的简单，后文中我们介绍了具体的实现细节，pm2官方文档 <https://pm2.keymetrics.io/docs/usage/application-declaration/>
 
 ```shell
 npm i  -g pm2
@@ -174,7 +169,7 @@ Restart=always
 WantedBy=multi-user.target
 ```
 
-> 实际上，上面的内容 Systemd 相关的你了解就好啦，pm2 也提供了快捷的设置方式
+实际上，上面的内容 Systemd 相关的你了解就好啦，pm2 也提供了快捷的设置方式
 
 ```shell
 # 设置pm2开机自启
@@ -184,25 +179,19 @@ pm2 startup centos
 pm2 save
 ```
 
-4. 缓存请求结果
+4. 缓存请求结果；  我们依然可以使用Nginx 来处理请求缓存！注意是Http的请求缓存 和redis 没有关系！文档地址在这里 <https://serversforhackers.com/c/nginx-caching>
 
-> 我们依然可以使用Nginx 来处理请求缓存！注意是Http的请求缓存 和redis 没有关系！文档地址在这里 <https://serversforhackers.com/c/nginx-caching>
+5. 使用负载均衡器； 关于负载均衡，我们可以部署多个node service 实例，然后使用Nginx 去处理。也可以使用 pm2 ，对没错pm2 自带有这个功能，不需要特殊设置
 
-5. 使用负载均衡器
+6. 使用反向代理； 采用微服务 架构下，不同的服务之间要频繁的额通信，我们使用反向代理，使得他们的掉用在“内网”进行，或者在同一k8s 集群下进行，会大幅度提升 通信效率。最常用工具依然是Nginx，<https://www.digitalocean.com/community/tutorials/an-introduction-to-haproxy-and-load-balancing-concepts>
 
-> 关于负载均衡，我们可以部署多个node service 实例，然后使用Nginx 去处理。也可以使用 pm2 ，对没错pm2 自带有这个功能，不需要特殊设置
-
-6. 使用反向代理
-
-> 采用微服务 架构下，不同的服务之间要频繁的额通信，我们使用反向代理，使得他们的掉用在“内网”进行，或者在同一k8s 集群下进行，会大幅度提升 通信效率。最常用工具依然是Nginx
-
-<https://www.digitalocean.com/community/tutorials/an-introduction-to-haproxy-and-load-balancing-concepts>
-
-#### 实际操作
+## 实际操作
 
 > 好以上是理论知识，现在我们啦实战 ，
 
-1. 首先我们需要加上gzip 等压缩，但是如果你使用nginx 这个东西也可以省略不写，nginx 自带就能处理，而且简单。我们这儿不用nginx，但是在实际项目产线必定80%就是Nginx, 虽然你不需要用，但是你得知道它怎么用
+1. 首先我们需要加上gzip 等压缩
+
+> 但是如果你使用nginx 这个东西也可以省略不写，nginx 自带就能处理，而且简单。我们这儿不用nginx，但是在实际项目产线必定80%就是Nginx, 虽然你不需要用，但是你得知道它怎么用
 
 ```js
 ++++
@@ -232,10 +221,8 @@ const logger = winston.createLogger({
 module.exports = {
   logger: logger,
 };
-
+//我们先定义，后面在使用
 ```
-
-我们先定义，后面在使用
 
 3. 正确的处理 异常
 
@@ -339,11 +326,11 @@ pm2 start ecosystem.config.js
 
 *上述的代码在commi-m "feature：优化和pm2部署配置"*
 
-### 压力测试/和多线程调优 - 打造一个持续且健壮的程序
+## 番外篇-压力测试/和多线程调优 - 打造一个持续且健壮的程序
 
 > 压力测试/和多线程调优 - 打造一个持续且健壮的程序., 这一讲我们将深入了机和立即Nodejs 的压力测试 ，稳定性的实现原理和逻辑，这里我参考的文章是：<https://juejin.cn/post/7095354780079357966>
 
-#### 还原项目结构
+### 还原项目结构
 
 > 我们需要还原上一个分支的内容，比如PM2 配置的内容，因为在这一讲，重点是性能 和测试，所以我们不实用一些pm2 之类的东西，我们就看Node底层的运作逻辑
 
@@ -353,7 +340,7 @@ pm2 start ecosystem.config.js
   2. 还原script 配置
   3. 为了 让我们的项目更加的简洁合理，我们把公用的方法丢到utils中, 把db 的配置做好啦，把log 的方法抽离到啦utils中
 
-#### 整改项目 并且清出 我们的压测 工具
+### 整改项目 并且清出 我们的压测 工具
 
 > 我们这种写规模的API，在性能上不会有什么大的差距，为了体现这种差距，我们新建一个test.js 来测试它的代码如下
 
@@ -640,7 +627,7 @@ if(cluster.isMaster){
 
 > 以上的内容我们全部提交在  git commit -m"POA"   中，需要具体指出的是，一般来说我们都是用pm2去操作多线程，如果你有特殊需求采取自己控制线程
 
-## 单元测试
+# 单元测试
 
 > 对于Nodejs来说，我们使用JEST 这个测试框架来测试, 我参考了这个位置<https://quanru.github.io/2018/02/22/%E4%BD%BF%E7%94%A8%20Jest%20%E6%B5%8B%E8%AF%95%20Node.js/>，对于源码实现感兴趣的同学可以来这里：<https://quanru.github.io/2018/02/22/%E4%BD%BF%E7%94%A8%20Jest%20%E6%B5%8B%E8%AF%95%20Node.js/>
 
@@ -648,4 +635,416 @@ if(cluster.isMaster){
 
 1. 第一步我们需要 整理目前的项目结构，我们把上面的东西都清理一下，只保留我们项目必要的业务文件，其他的demo文件全部删除掉，
 
-<!-- 2.  -->
+2. 我们新建一个文件夹__test__然后在里面编写测试，
+
+3. 重新编写app.js 把启动的代码丢外面，很重要！
+
+```js
+// app.js
++++
+app.use('/author', author);
+app.use('/book', book);
+app.use('/genre', genre);
+app.use('/book-instance', bookInstance);
+
+// 设置一个路由，如果前面的都有问题，就到这里来处理错误
+app.use((err, req, res, next) => {
+  logger.error({
+    level: 'error',
+    message: err.message,
+  });
+  res.status(500).json(err);
+});
+module.exports = app;
+
+// server.js
+const { initConnection } = require('./db');
+const app = require('./app');
+
+initConnection().then(() => {
+  app.listen(3000, () => {
+    console.log('server start in 3000');
+  });
+});
+
+```
+
+4.“步子不能迈太大，容易扯着蛋🥚”
+> 现在我们来一点点的介绍，我们要测试什么，如何对它进行测试,  流程上是如何做的
+
+首先 我们要测试的东西是下面的这些：
+
+server - 启动是否正常
+middleware - 加载正常，请求时正常工作
+controllers - 请求特定路由，看响应是否是符合预期
+services - 调用特定方法，返回结果符合预期，边界情况
+routes、lib - 普通测试
+
+> 在正式测试之前，我们来看看一个简单的demo， 首先我们在 根目录新建这样的文件
+
+```js
+// number-add.js 解析来它就是要被我们测试的文件, 现在的内容是这样的
+const debug = require('debug');
+
+module.exports = (a, b) => {
+  debug('value a: ', a);
+  debug('value b: ', b);
+
+  return a + b;
+};
+
+
+// describe是干什么的？主要是模块模块的每一个 测试用例 封装起来，
+// 然后我们的测试文件 长这样，它在__test__文件夹下 number-add.test.js
+describe('demo测试模块', () => {
+  // 在所有单测运行前执行，用于准备当前 describe 模块所需要的环境准备，比如全局的数据库；
+  beforeAll(() => {});
+
+  // 在每个单测运行前执行，用于准备每个用例（it）所需要的操作，比如重置 server app 操作
+  beforeEach(() => {
+    jest.mock('debug');
+  });
+
+  // 在每个单测运行后执行，用于清理每个用例（it）的相关变量，比如重置所有模块的缓存
+  afterEach(() => {
+    jest.resetModules();
+  });
+
+  // 在所有单测运行后执行，用于清理环境，比如清理一些为了单测而生成的“环境准备”
+  afterAll(() => {});
+
+  it('当 env 为默认的 development 环境时，返回 localhost 地址',  () => {
+    const add = require('../number-add.js');
+    const total = add(1, 2);
+    console.log('total', total);
+    expect(total).toBe(3);
+  });
+});
+```
+
+上面就是一个非常非常普通和简单的测试，我们来看看，我们要做完一个项目上的测试，还需要掌握哪些技能
+
+4. 单元测试必须要的  mock
+
+> mock是jest 中的模拟数据的工具，它有下面的几种作用：屏蔽外部影响、模拟外部的掉用
+
+**屏蔽外部影响**
+
+```js
+// 还记得我们上面的number-add 嘛，它引入了一个外部模块，所以我们在测试的时候这样模拟
+// mock debug 模块，使得每次 require 该模块时，返回自动生成的 mock 实例
+
+jest.mock('debug');
++++
+// It 实际上就是test ，名字不一样而已
+it('返回 a 和 b 的和', () => {
+  const add = require('utils/number-add')
+  const total = add(1, 2)
+
+  expect(total).toBe(3)
+})
+```
+
+**模拟外部调用**
+> 如果我的用例中有一个 promise 怎么办？,下面就是解决方案
+
+```js
+// 这里我们改造一下，number-add 
+const debug = require('debug');
+const fetch = require('node-fetch');
+
+module.exports = async (apiA, apiB) => {
+  const stringA = await fetch(apiA);
+  const stringB = await fetch(apiB);
+  return stringA + stringB;
+};
+
+// 然后看看我们的东西到底如写 测试 number-add.test.js
+describe('demo测试模块', () => {
+  beforeAll(() => {});
+  beforeEach(() => {});
+  afterEach(() => {
+    jest.resetModules();
+  });
+  afterAll(() => {});
+
+  it('测试外部掉用和异步', async () => {
+    // 模拟外部实现
+    jest.mock('node-fetch', () => {
+      return jest
+        .fn()
+        .mockImplementationOnce(async () => 'Hello ') // 首次调用时返回 'Hello '
+        .mockImplementationOnce(async () => 'world!'); // 第二次调用时返回 ' world!'
+    });
+
+    // 进行测试
+    const addAsync = require('../number-add');
+    const stringRes = await addAsync('apiA', 'apiB');
+    console.log('stringRES', stringRes);
+    expect(stringRes).toBe('Hello world!');
+  });
+});
+```
+
+上面就是两个简单的例子了，现在我们看看 一个真正的mock 该怎么写
+
+```js
+// 实际上我们不经常写 连续, 调用的代码，这样不够直观 所以我们在项目中一般是这样写的, 但是这不代表，你不用了解 第一种连续. 调用的写法 哈！
+
+
+describe('测试 string-add-async 模块 2', () => {
+  it('返回接口 a 和 接口 b 所返回的字符串拼接', async () => {
+    // mock node-fetch 模块，使得每次 require 该模块时，返回 mock 实例
+    jest.mock('node-fetch')
+    const fetch = require('node-fetch')
+
+    fetch
+      .mockImplementationOnce(async () => 'Hello ') // 首次调用时返回 'Hello '
+      .mockImplementationOnce(async () => 'world!') // 第二次调用时返回 ' world!'
+      
+    const addAsync = require('utils/string-add-async')
+    const string = await addAsync('apiA', 'apiB')
+    expect(string).toBe('Hello world!')
+  })
+})
+
+```
+
+```md
+
+我们再来看看在测试中的mock 实例，它具备下面的特点
+
+当一个模块被 mock 之后，便返回了一个 mock 实例，该实例上有丰富的方法可以用来进一步 mock；且还给出了丰富的属性用以断言
+
+mockImplementation(fn) 其中 fn 就是所 mock 模块的实现
+mockImplementationOnce(fn) 与 1 类似，但是仅生效一次，可链式调用，使得每次 mock 的返回都不一样
+mockReturnValue(value) 直接定义一个 mock 模块的返回值
+mockReturnValueOnce(value) 直接定义一个 mock 模块的返回值（一次性）
+mock.calls 调用属性，比如一个 mock 函数 fun 被调用两次：fun(arg1, arg2); fun(arg3, arg4);，则 mock.calls 值为 [['arg1', 'arg2'], ['arg3', 'arg4']]
+
+```
+
+5. 现在所以你该了解的知识你应该都已经了解啦，接下来进入真实的项目测试环
+
+> 别忘记把 冗余文件删除掉，我们来构建 **test**  更详细的目录, 为了测试 中间件 middleware 现在我们写一个简单的中间件，它的作用就是记录每一个请求日志
+
+```js
+// middleware/reqInfo.js
+const { logger } = require('../utils/logger');
+module.exports = {
+  reqInfo: (req, res, next) => {
+    logger.info({
+      level: 'info',
+      message: {
+        reqData: Date.now(),
+        requestType: req.method,
+        originURL: req.originalUrl,
+      },
+    });
+    next();
+  },
+};
+
+// app.js 应用
++++
+
+const app = express();
+app.use(bodyParser.json());
+app.use(compression());
+
+// 引用全局中间件
+app.use(reqInfo);
++++
+```
+
+好了，所以准备工作我们都做完啦, 现在开始编写单元测试
+
+第一：测试程序的启动和运行
+
+```js
+const supertest = require('supertest');
+const { initConnection, disconnect } = require('../../db');
+const app = require('../../app');
+
+//  重要介绍，每次app.listen 都是启动的一个服务实例 的操作，所以我们才把应用的启动
+//  和app 配置 分开，还要注意，由于实例的问题，如果你在每个 it 中都去listen 会导致有问题
+//  所以我们把它 放在 这些钩子 中 ，很重要！！另外我们一定要配合 supertest 来做nodejs 的
+//  单元测试，现在我们有来这样的基础的模板 template 后面的代码我们都回你用到它
+
+describe('server 服务', () => {
+  let server;
+
+  beforeAll(async () => {
+    // 数据库连接, 如果返回的是一个异步的 jest会等待它
+    return initConnection();
+  });
+
+  beforeEach(() => {
+    if (server) {
+      server.close();
+    }
+    server = app.listen(3331);
+  });
+
+  afterEach(() => {});
+
+  afterAll(() => {
+    //释放数据库连接
+    server.close();
+    return disconnect();
+  });
+
+  it('启动正常', async () => {
+    expect(() => supertest(server)).not.toThrow();
+  });
+
+  it('服务异常', async () => {
+    await supertest(server)
+      .post('/author')
+      .send({ name: 'john' })
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
+      .expect(200)
+      .then((res) => {
+        console.log('res', res);
+      })
+      .catch((err) => {
+        expect(err.message).toBe(
+          'expected 200 "OK", got 500 "Internal Server Error"',
+        );
+      });
+  });
+});
+
+```
+
+第二：测试中间件
+> 还记得我们上面写的那个中间件吗？我们现在来测试它，如果你要测试这个中间件，你需要知道logger 是否正常工作，你需要引入logger 然后访问特点的URL之后看看它存的日志和是否和预期一致，接下来你我们来测试它
+
+```js
+const supertest = require('supertest');
+const { initConnection, disconnect } = require('../../../db');
+const app = require('../../../app');
+const { reqInfo } = require('../../../middleware/reqInfo');
+const { logger } = require('../../../utils/logger');
+
+describe('server 服务', () => {
+  let server;
+
+  beforeAll(async () => {
+    return initConnection();
+  });
+
+  beforeEach(() => {
+    if (server) {
+      server.close();
+    }
+    server = app.listen(3333);
+     jest.resetModules()
+  });
+
+  afterEach(() => {});
+
+  afterAll(() => {
+    server.close();
+    return disconnect();
+  });
+
+  it('req-info 日志正常', async () => {
+    await supertest(server)
+      .get('/author')
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
+      .expect(200);
+
+// 这个查询的逻辑需要去看 winston  官方文档
+    const loggerPromiseQuery = () => {
+      return new Promise((resolve, reject) => {
+        logger.query(
+          {
+            from: new Date() - 24 * 60 * 60 * 1000,
+            until: new Date(),
+            limit: 10,
+            start: 0,
+            order: 'desc',
+          },
+          (err, res) => {
+            const messageInfo = res.file.filter(
+              (it) => it.level === 'info' && typeof it.message === 'object',
+            )[0];
+            resolve(messageInfo.message.originURL);
+          },
+        );
+      });
+    };
+
+    const value = await loggerPromiseQuery();
+
+    // 如果日志和测试一样 说明 这个日志是对等的 这个case 通过
+    expect(value).toBe('/author');
+  });
+});
+
+```
+
+第三：controllers接口测试
+> 基本的结构和上文的保持一致，大概不会差很多, 我们需要用到mock 来保障 屏蔽外部的影响. 举个简单的例子来说 比如 还是 get Author 这个API, 我们需要测试它正常和异常场景, 这次我们聚焦在controller 层的测试，因此我们 需要屏蔽 service 的实现带来的影响，所以我们mock service 的实现
+
+```js
+const supertest = require('supertest');
+const { initConnection, disconnect } = require('../../../db');
+const app = require('../../../app');
+const { logger } = require('../../../utils/logger');
+
+describe('author controller', () => {
+  let server;
+
+  beforeAll(async () => {
+    return initConnection();
+  });
+
+  beforeEach(() => {
+    if (server) {
+      server.close();
+    }
+    server = app.listen(3333);
+  });
+
+  afterEach(() => {});
+
+  afterAll(() => {
+    server.close();
+    return disconnect();
+  });
+
+  it('controller get success', (done) => {
+    supertest(server)
+      .get('/author')
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
+      .expect(200)
+      .end((err, res) => {
+        // console.log('status-->', res.status); 其实 = 200 也是说明这个测试用例通过来
+        // console.log('body-->', res.body);
+        if (err) return done(err);
+        return done();
+      });
+  });
+});
+```
+
+第四：service测试
+> 和上文的测试保持一致就好，这里不过多的详细说明
+
+最后我们说一下  评价标准， 另外这里有一篇文章，个人认为写的非常不错，大家可以参考一下
+><https://github.com/yangyubo/zh-unit-testing-guidelines/blob/master/readme.rst>
+
+测试维度：
+我们认为 源代码被测试的比例有四个维度去度量
+
+1. 行覆盖率（line coverage）：是否每一行都执行了？
+2. 函数覆盖率（function coverage）：是否每个函数都调用了？
+3. 分支覆盖率（branch coverage）：是否每个if代码块都执行了？
+4. 语句覆盖率（statement coverage）：是否每个语句都执行了？
+
+至此所有的MongoDB - Nodejs 项目就结束啦，我们覆盖到了 入门-业务开发-部署和性能优化 -单元测试，这个项目的目的旨在 为了，提供一个 graphql-node分支的测试环境接下来我们会到主要的目标**构建Graphql-NodeService**

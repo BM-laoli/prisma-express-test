@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const compression = require('compression');
 
 const { logger } = require('./utils/logger');
-const initConnection = require('./db');
+const { reqInfo } = require('./middleware/reqInfo');
 const author = require('./routes/author');
 const book = require('./routes/book');
 const genre = require('./routes/genre');
@@ -12,6 +12,9 @@ const bookInstance = require('./routes/bookInstance');
 const app = express();
 app.use(bodyParser.json());
 app.use(compression());
+
+// 引用全局中间件
+app.use(reqInfo);
 
 // 我们定义一个路由对User 和 Book 做路由的CRUD
 app.use('/author', author);
@@ -25,11 +28,6 @@ app.use((err, req, res, next) => {
     level: 'error',
     message: err.message,
   });
-  res.json(err);
+  res.status(500).json(err);
 });
-
-initConnection().then(() => {
-  app.listen(3000, () => {
-    console.log('server start in 3000');
-  });
-});
+module.exports = app;

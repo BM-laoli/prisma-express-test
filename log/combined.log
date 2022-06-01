@@ -1,1 +1,347 @@
 {"level":"info","message":"find update","service":"user-service"}
+{"level":"error","message":"Data is not defined","service":"user-service"}
+{"level":"error","message":"Data is not defined","service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1653915798241,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/genre","reqData":1653915829637,"requestType":"GET"},"service":"user-service"}
+{"level":"error","message":"unsupported charset \"UTF-8\"","service":"user-service"}
+{"level":"error","message":"unsupported charset \"UTF-8\"","service":"user-service"}
+{"level":"error","message":"unsupported charset \"UTF-8\"","service":"user-service"}
+{"level":"error","message":"unsupported charset \"UTF-8\"","service":"user-service"}
+{"level":"error","message":"unsupported charset \"UTF-8\"","service":"user-service"}
+{"level":"error","message":"unsupported charset \"UTF-8\"","service":"user-service"}
+{"level":"error","message":"unsupported charset \"UTF-8\"","service":"user-service"}
+{"level":"error","message":"unsupported charset \"UTF-8\"","service":"user-service"}
+{"level":"error","message":"unsupported charset \"UTF-8\"","service":"user-service"}
+{"level":"error","message":"unsupported charset \"UTF-8\"","service":"user-service"}
+{"level":"info","message":{"originURL":"/genre","reqData":1653924304054,"requestType":"GET"},"service":"user-service"}
+{"level":"error","message":"Right-hand side of 'instanceof' is not callable","service":"user-service"}
+{"level":"info","message":{"originURL":"/","reqData":1653924418065,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1653924821709,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"error","message":"unsupported charset \"UTF-8\"","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1653924860978,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1653924901481,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"error","message":"unsupported charset \"UTF-8\"","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1653925018628,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: age: Path `age` (-1) is less than minimum allowed value (16).","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1653925054341,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1653925069212,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1653925133711,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1653925507023,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1653925568676,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1653925588017,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1653925628183,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1653925740784,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1653925760237,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1653925775559,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"error","message":"unsupported charset \"UTF-8\"","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1653925825932,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1653925837694,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1653925850510,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1653925866008,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: age: Path `age` (-1) is less than minimum allowed value (16).","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1653925894683,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: age: Path `age` (-1) is less than minimum allowed value (16).","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1653925895272,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: age: Path `age` (-1) is less than minimum allowed value (16).","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1653926083529,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: age: Path `age` (-1) is less than minimum allowed value (16).","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1653926084187,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: age: Path `age` (-1) is less than minimum allowed value (16).","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1653926084735,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: age: Path `age` (-1) is less than minimum allowed value (16).","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1653926102227,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1653926145686,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1653926150749,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1653926172277,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1653926344821,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1653926352894,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1653926469858,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1653926490486,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1653926548272,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1653998242656,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1653998576733,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1653998592499,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1653998622980,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1653998673467,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1653998735569,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1653998765367,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1653998810451,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1653998818633,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1653998828027,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1653998888653,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1653998898339,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1653998963908,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1653998990535,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1653999089236,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1653999172823,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1653999199891,"requestType":"POST"}}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required."}
+{"level":"info","message":{"originURL":"/author","reqData":1653999211984,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1653999220754,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1653999425922,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1653999432099,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1653999499843,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1653999601382,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1653999762210,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1653999762339,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1653999785929,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1653999786146,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1653999801825,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1653999801968,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1653999810024,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1653999890995,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1653999891025,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1653999911751,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1653999911884,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1653999918124,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1653999928496,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1653999973349,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1653999973387,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654000121620,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654000121648,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654000246354,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654000246377,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654000262879,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654000262907,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654000288848,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654000288946,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654000306898,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654000307036,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654000312504,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654000374709,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654000374735,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654000406497,"requestType":"POST"},"service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654000406500,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654000513364,"requestType":"GET"},"service":"user-service"}
+{"level":"error","message":"Cannot read properties of null (reading 'Decimal128')","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654000513391,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654000521146,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654000521171,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654000537389,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654000537539,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654002221968,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654002221998,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654002738033,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654002738067,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654002750576,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654002750628,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654002755304,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654002755336,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654002772191,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654002772217,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654003000882,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654003000908,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654003043033,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654003043057,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654003119847,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654003119878,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654003164845,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654003164873,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654003196115,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654003196144,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654003310487,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654003310513,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654003346545,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654003346574,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654003370863,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654003370891,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654003383684,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654003383712,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654003458650,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654003458680,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654003464083,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654003464113,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654003480505,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654003480540,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654003490956,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654003490972,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654003537275,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654003537300,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654003558140,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654003558168,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654003653270,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654003653296,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654003668442,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654003668464,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654003693539,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654003693562,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654004165584,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654004165584,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654004165607,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654004166509,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654004177864,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654004177892,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654004178088,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654004180918,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654004335525,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654004335550,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654004335865,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654004337526,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654004404481,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654004404563,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654004404777,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654004406319,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654004434470,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654004434475,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654004434501,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654004445379,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654004445413,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654004445640,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654004463767,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654004463794,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654004464007,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}

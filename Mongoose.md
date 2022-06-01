@@ -1,26 +1,29 @@
 # 说明
 
-> 这里的文档 是说明 Express + Mongoose 的各种 使用，参考文档 官方6.3 英文文档 和 CSDN的这片文章 <https://blog.csdn.net/weixin_45828332/article/details/114120710>
+> 这里的文档 是说明 Express + Mongoose 的技术文档，参考文档 官方6.3 英文文档 和 CSDN的这片文章 <https://blog.csdn.net/weixin_45828332/article/details/114120710>
 <https://blog.csdn.net/weixin_45828332/article/details/114119058>
 
 ## 理论知识
 
 ### 介绍
 
-> 如果你需要玩 MongoDB 有些概念 你一定需要知道 就像你玩Mysql 你需要知道SQL 、tab、一对一、一对多 、外建、关系 等....
+> 如果你需要玩 MongoDB ，有些概念 你一定需要知道 就像你玩Mysql 你需要知道SQL 、tab、一对一、一对多 、外建、关系 等....
 
-首先我们建立一个认知 **Schema生成Model，Model创造Document**
+- 首先我们建立一个认知 **Schema生成Model，Model创造Document**
 以下是详细说明：
 
-Schema（模式对象） ——Schema 对象定义约束了数据库中的文档结构
-Model ——Model 对象作为集合中的所有文档的表示，相当于MongoDB中的collection，它的每一个实例就是一个document文档
-Document ——Document表示集合中的具体文档，相当于collection中的一个具体文档
+- Schema（模式对象） ——Schema 对象定义约束了数据库中的文档结构，
+
+- Model ——Model 对象作为集合中的所有文档的表示，相当于MongoDB中的collection，
+它的每一个实例就是一个document文档
+
+- Document ——Document表示集合中的具体文档，相当于collection中的一个具体文档
 
 ### Schema
 
-> Schema 在官方 mongoose 文档中它是 一个对象 很挺多属性的，我们最常用的属性有下面几个 Schema.add() 方法 ，Schema.pre() , Schema.post() 这些方法
+> Schema 在官方 mongoose 文档中它是 一个对象 ，有挺多属性的，我们最常用的属性有下面几个：Schema.add() 方法 ，Schema.pre() , Schema.post() 这些方法
 
-Schema 是一个构造函数 我们需要new 一个 schema实例 去掉用 add pre post 这些方法,
+Schema 是一个构造函数 我们需要new 一个 schema实例 ，然后使用实例 去调用 add pre post 这些方法,
 
 1.Schema 的 构造参数
 
@@ -179,7 +182,7 @@ someModal.insertMany({name:"小明",grades:68},{name:"小芳",grades:94})
 1. find
 Model.find(conditions, [projection], [options], [callback])
 
-2.findById
+2. findById
 Model.findById(id, [projection], [options], [callback])
 
 3. findOne
@@ -300,7 +303,7 @@ const res = await BookModel.findByIdAndRemove(id);
 
 ### 连接MongoDB 和初始化的一些设计
 
-> 第一步！先连接上数据库再说！
+> 第一步！先连接上数据库再说！这里我们还引用的一篇文章的知识，需要的请点击这里
 <https://developer.mozilla.org/zh-CN/docs/Learn/Server-side/Express_Nodejs/mongoose>
 
 ```js
@@ -310,11 +313,13 @@ const mongoose = require('mongoose');
 const dbConfig = require('./config');
 
 const initConnection = async () => {
-  // 注意mongoDB 的数据库密码 只对当前的库有效！
+  // 注意mongoDB 的数据库密码 只对当前的库有效！如果你是有秘密的
+  // 你需要这样写 指定密码 和 索引的库 authSource=admin
+
   // const connection = mongoose.connect("mongodb://admin:123456@192.168.101.10:27017/admin",
   //   { useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true })
   return new Promise((resolve, reject) => {
-    const connection = mongoose.connect('mongodb://192.168.101.10:27017/test', {
+    const connection = mongoose.connect('mongodb://root:12345@192.168.101.10:27017/test?authSource=admin', {
       useUnifiedTopology: true,
       useNewUrlParser: true,
     });
@@ -333,7 +338,7 @@ module.exports = initConnection
 
 ```
 
-以上只是连接，我还划分了一些文件夹结构，以及分配了 一些 路由 和，设计了几张表
+以上只是连接数据库，我还划分了一些文件夹结构，以及分配了 一些 路由 和，设计了几张表
 
 #### 首先文件夹结构如下
 
@@ -344,21 +349,20 @@ module.exports = initConnection
 ![](https://cdn.nlark.com/yuque/0/2022/png/1627571/1653142389734-c0cafa30-126c-4a1c-84be-6dbb324216b7.png)
 
 我来具体的说明一下：
-我们需要建立这样的系统 ：“图书管理系统”，首先我们的系统的主角是 books 它具备下面的属性
+
+1. 我们需要建立这样的系统 ：“图书管理系统”，首先我们的系统的主角是 books 它具备下面的属性
 书名、摘要、作者、种类、ISBN;   作者需要有下面的字段。作者需要下面的属性：
 名，姓，出生日期 死亡日期，名字，寿命，url wiki;  我们还需要有分类的信息，
 名称，url（比如图片地址什么的） 。 我们还需要 书架信息 ：有哪些书 ，书的编号，书的状态（在库还是借走来） 到期时间。
 
-注意  a 0 ... *b 表示*b必须包含 0 个或者 多个 a*，在 关系型数据库中 我们使用 外建，在mongoDB中我们使用id 做联合查询.
+2. 注意  a 0 ... *b 表示*b必须包含 0 个或者 多个 a*，在 关系型数据库中 我们使用 外建，在mongoDB中我们使用id 做联合查询.
 1..*   ===> 至少一个或者多个
 0..* ===> 零个或者多个
 1 ==> 有且 一个
 
-按照上面的图来说他们具体的关系就是：
-
-站在book角度：
-genre 包含 一个或者多个book ，book 属于 一个 bookInstance ，book 有一个或者多个author
-
+3. 按照上面的图来说他们具体的关系如下：
+站在book角度，
+genre 包含 一个或者多个book ，book 属于 一个 bookInstance ，book 有一个或者多个author，
 站在 genre 角度  包含零个或者多个book ，
 站在 bookInstance 角度  包含零个 或者多个book ，
 站在 author 角度  包含一个book
@@ -836,12 +840,12 @@ module.exports = mongoose.model('Book', BookSchema);
 
 ```
 
-Nice 看起来这些东西你都准备好啦，现在让我们来实现这些对Genre的CRUD，首先我们先实现genre 它相对i独立, 主要还是CV
+Nice! 看起来这些东西你都准备好啦，现在让我们来实现这些对Genre的CRUD，首先我们先实现 genre ,它相对独立, 主要还是CV
 
-*我们添加 个字的Service Controller 和 router*
-下面的内容是实现 一些空的代码结构
+*我们添加 genre 的Service Controller 和 router*
 
-我们换一个角度，在做业务中可能更加的合适 Service -> controller -> router -前端/tempalte语法
+下面的内容是实现 一些空的代码结构,
+我们换一个角度，在做业务中可能更加的合适 Service -> controller -> router -> 前端SPA/temple模板渲染
 
 *service*
 
@@ -933,12 +937,13 @@ module.exports = generaRouter;
 
 经过上面的操作，我们已经能够 完成Genre的CRUD 了
 
-最后我们来哦实现book ，这个时候我们需要把它和author + genre 关联起来
+最后我们来实现book ，这个时候我们需要把它和author + genre 关联起来
 > 需要使用聚合操作 来实现 关联字段的查询
 
-实际上，我们最常用到的场景 就是 关联查询 和关联修改
+实际上，我们最常用到的场景 就是 关联查询 和关联修改 这是一个难点也是重点
 
 *service*
+
 ./service/bookService.js
 
 ```js

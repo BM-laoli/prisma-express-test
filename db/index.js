@@ -3,6 +3,9 @@ const dbConfig = require('./config');
 const { logger } = require('../utils/logger');
 
 const initConnection = async () => {
+  // 让 mongoose 使用全局 Promise 库
+  mongoose.Promise = global.Promise;
+
   // 注意mongoDB 的数据库密码 只对当前的库有效！
   // const connection = mongoose.connect("mongodb://admin:123456@192.168.101.10:27017/admin",
   //   { useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true })
@@ -20,8 +23,6 @@ const initConnection = async () => {
         useNewUrlParser: true,
       },
     );
-    // 让 mongoose 使用全局 Promise 库
-    mongoose.Promise = global.Promise;
 
     mongoose.connection.on('connected', (err) => {
       resolve(connection);
@@ -37,4 +38,9 @@ const initConnection = async () => {
   });
 };
 
-module.exports = initConnection;
+module.exports = {
+  initConnection: initConnection,
+  disconnect: async () => {
+    mongoose.disconnect();
+  },
+};
