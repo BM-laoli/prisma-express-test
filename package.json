@@ -9,6 +9,9 @@
     "compression": "^1.7.4",
     "debug": "^4.3.4",
     "express": "^4.18.1",
+    "express-graphql": "^0.12.0",
+    "graphql": "^16.5.0",
+    "graphql-tools": "^8.2.11",
     "luxon": "^2.4.0",
     "mongoose": "^6.3.4",
     "node-fetch": "^3.2.4",
@@ -16,7 +19,9 @@
   },
   "scripts": {
     "start": "node server.js ",
-    "test": "jest"
+    "test": "jest",
+    "babel": " npx babel-node server.js ",
+    "dev": "graphpack"
   },
   "devDependencies": {
     "@babel/core": "^7.17.12",

@@ -345,3 +345,129 @@
 {"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
 {"level":"info","message":{"originURL":"/author","reqData":1654004464007,"requestType":"GET"},"service":"user-service"}
 {"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654089853674,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/graphql?query{authors}","reqData":1654091098356,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":{"originURL":"/graphql?query={authors}","reqData":1654091173633,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":{"originURL":"/graphql?query={authors{}}","reqData":1654091203563,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":{"originURL":"/graphql?query={authors}","reqData":1654091209733,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":{"originURL":"/graphql?query={authors%20{%20age%20}}","reqData":1654091223663,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/graphql?query={authors%20{%20id%20}}","reqData":1654091231024,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/graphql?query={authors%20{%20first_name%20}}","reqData":1654091243057,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/graphql?query={authors%20{%20first_name%20first_name%20%20}}","reqData":1654091523978,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/graphql?query={authors%20{%20first_name%20,%20first_name%20%20}}","reqData":1654091529247,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/graphql?query={authors%20{%20%20%20}}","reqData":1654091561617,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":{"originURL":"/graphql?query={authors%20{first_name%20%20id%20%20}}","reqData":1654091570196,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/graphql?query={authors%20{first_name%20%20id%20%20family_name%20}}","reqData":1654091580258,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/graphql?query={authors%20{first_name%20%20id%20%20family_name%20%0Aage%20}}%20","reqData":1654091602558,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/graphql?query={books%20{%20id%20}}%20","reqData":1654092014012,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":{"originURL":"/graphql?query={books%20{%20id%20,%20title%20}}%20","reqData":1654092028129,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":{"originURL":"/book","reqData":1654092039856,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/graphql?query={books%20{%20id%20,%20title%20}}%20","reqData":1654092067885,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":{"originURL":"/graphql?query={books%20{%20id%20,%20title%20}}%20","reqData":1654092068580,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":{"originURL":"/graphql?query={books%20{%20id%20,%20title%20}}%20","reqData":1654092068962,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":{"originURL":"/graphql?query={books%20{%20%20}}%20","reqData":1654092072233,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":{"originURL":"/graphql?query={books%20{%20author%20}}%20","reqData":1654092074165,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":{"originURL":"/graphql?query={books%20{%20summary%20}}%20","reqData":1654092085526,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":{"originURL":"/graphql?query={books%20{%20summary%20}}%20","reqData":1654092141380,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":{"originURL":"/graphql?query={books%20{%20summary%20}}%20","reqData":1654092199246,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/graphql?query={books%20{%20id%20summary%20}}%20","reqData":1654092208829,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/graphql?query={books%20{%20id%20summary%20author%20{%20%20id%20first_name%20%20}%20}}%20","reqData":1654092227003,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654092692059,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/graphql?query={author(id:%20%2262890ef9ecfd69398ee75752%22)%20{%20id%20}}%20","reqData":1654092701908,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/graphql?query={author(id:%20%2262890ef9ecfd69398ee75752%22)%20{%20id%20}}%20","reqData":1654092829052,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":{"originURL":"/author?id=628cdf35420ea76da59b9117","reqData":1654093086940,"requestType":"DELETE"},"service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654093090016,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/graphql?query={updateAuthor(id:%20%2262890ef9ecfd69398ee75752%22)%20{%20id%20}}%20","reqData":1654093610494,"requestType":"POST"},"service":"user-service"}
+{"level":"info","message":{"originURL":"/graphql?query={author(id:%20%2262890ef9ecfd69398ee75752%22)%20{%20id%20}}%20","reqData":1654093618211,"requestType":"POST"},"service":"user-service"}
+{"level":"info","message":{"originURL":"/graphql?mutation=updateAuthor%20($id:%20ID!,%20$first_name:%20String!,%20$family_name:%20String!,%20$age:%20Int)%20{%0A%20%20updateUser(id:%20$id,%20first_name:%20$first_name,%20family_name:%20$family_name,%20age:%20$age)%20{%0A%20%20%20%20id%0A%20%20%20%20first_name%0A%20%20%20%20family_name%0A%20%20%20%20age%0A%20%20}%0A}","reqData":1654093981154,"requestType":"PUT"},"service":"user-service"}
+{"level":"info","message":{"originURL":"/graphql?mutation=updateAuthor%20($id:%20ID!,%20$first_name:%20String!,%20$family_name:%20String!,%20$age:%20Int)%20{%0A%20%20updateUser(id:%20$id,%20first_name:%20$first_name,%20family_name:%20$family_name,%20age:%20$age)%20{%0A%20%20%20%20id%0A%20%20%20%20first_name%0A%20%20%20%20family_name%0A%20%20%20%20age%0A%20%20}%0A}","reqData":1654093988132,"requestType":"POST"},"service":"user-service"}
+{"level":"info","message":{"originURL":"/graphql?mutation=UpdateAuthor%20($id:%20ID!,%20$first_name:%20String!,%20$family_name:%20String!,%20$age:%20Int)%20{%0A%20%20updateUser(id:%20$id,%20first_name:%20$first_name,%20family_name:%20$family_name,%20age:%20$age)%20{%0A%20%20%20%20id%0A%20%20%20%20first_name%0A%20%20%20%20family_name%0A%20%20%20%20age%0A%20%20}%0A}","reqData":1654094005089,"requestType":"POST"},"service":"user-service"}
+{"level":"info","message":{"originURL":"/graphql?mutation=updateAuthor%20($id:%20ID!,%20$first_name:%20String!,%20$family_name:%20String!,%20$age:%20Int)%20{%0A%20%20updateUser(id:%20$id,%20first_name:%20$first_name,%20family_name:%20$family_name,%20age:%20$age)%20{%0A%20%20%20%20id%0A%20%20%20%20first_name%0A%20%20%20%20family_name%0A%20%20%20%20age%0A%20%20}%0A}","reqData":1654094024467,"requestType":"POST"},"service":"user-service"}
+{"level":"info","message":{"originURL":"/graphql?mutation=updateAuthor%20($id:%20ID!,%20$first_name:%20String!,%20$family_name:%20String!,%20$age:%20Int)%20{%0A%20%20updateUser(id:%20$id,%20first_name:%20$first_name,%20family_name:%20$family_name,%20age:%20$age)%20{%0A%20%20%20%20id%0A%20%20%20%20first_name%0A%20%20%20%20family_name%0A%20%20%20%20age%0A%20%20}%0A}","reqData":1654094090041,"requestType":"POST"},"service":"user-service"}
+{"level":"info","message":{"originURL":"/graphql?mutation=updateAuthor%20($id:%20ID!,%20$first_name:%20String!,%20$family_name:%20String!,%20$age:%20Int)%20{%20%20updateUser(id:%20$id,%20first_name:%20$first_name,%20family_name:%20$family_name,%20age:%20$age)%20{%20id%20%20%20%20first_name%20%20%20%20family_name%20%20%20%20age%20%20}%20}","reqData":1654094120283,"requestType":"POST"},"service":"user-service"}
+{"level":"info","message":{"originURL":"/graphql?mutation=updateAuthor%20($id:%20ID!,%20$first_name:%20String!,%20$family_name:%20String!,%20$age:%20Int)%20{%20%20updateUser(id:%20$id,%20first_name:%20$first_name,%20family_name:%20$family_name,%20age:%20$age)%20{%20id%20%20%20%20first_name%20%20%20%20family_name%20%20%20%20age%20%20}%20}","reqData":1654094121216,"requestType":"POST"},"service":"user-service"}
+{"level":"info","message":{"originURL":"/graphql?mutation=updateAuthor%20($id:%20ID!,%20$first_name:%20String!,%20$family_name:%20String!,%20$age:%20Int)%20{%20%20updateUser(id:%20$id,%20first_name:%20$first_name,%20family_name:%20$family_name,%20age:%20$age)%20{%20id%20%20%20%20first_name%20%20%20%20family_name%20%20%20%20age%20%20}%20}","reqData":1654094122268,"requestType":"POST"},"service":"user-service"}
+{"level":"info","message":{"originURL":"/graphql?mutation=updateAuthor%20($id:%20ID!,%20$first_name:%20String!,%20$family_name:%20String!,%20$age:%20Int)%20{%20%20updateUser(id:%20$id,%20first_name:%20$first_name,%20family_name:%20$family_name,%20age:%20$age)%20{%20id%20%20%20%20first_name%20%20%20%20family_name%20%20%20%20age%20%20}%20}","reqData":1654094387917,"requestType":"POST"},"service":"user-service"}
+{"level":"info","message":{"originURL":"/graphql","reqData":1654094396093,"requestType":"POST"},"service":"user-service"}
+{"level":"info","message":{"originURL":"/graphql","reqData":1654094430236,"requestType":"POST"},"service":"user-service"}
+{"level":"info","message":{"originURL":"/graphql","reqData":1654094431984,"requestType":"POST"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/graphql?mutation=updateAuthor%20($id:%20ID!,%20$first_name:%20String!,%20$family_name:%20String!,%20$age:%20Int)%20{%0A%20%20updateUser(id:%20$id,%20first_name:%20$first_name,%20family_name:%20$family_name,%20age:%20$age)%20{%0A%20%20%20%20id%0A%20%20%20%20first_name%0A%20%20%20%20family_name%0A%20%20%20%20age%0A%20%20}%0A}","reqData":1654094763396,"requestType":"POST"},"service":"user-service"}
+{"level":"info","message":{"originURL":"/graphql","reqData":1654094778650,"requestType":"POST"},"service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654094834211,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/graphql","reqData":1654094891944,"requestType":"PUT"},"service":"user-service"}
+{"level":"info","message":{"originURL":"/graphql","reqData":1654094896980,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":{"originURL":"/graphql","reqData":1654095061091,"requestType":"POST"},"service":"user-service"}
+{"level":"info","message":{"originURL":"/graphql","reqData":1654095062260,"requestType":"POST"},"service":"user-service"}
+{"level":"info","message":{"originURL":"/graphql","reqData":1654095065236,"requestType":"POST"},"service":"user-service"}
+{"level":"info","message":{"originURL":"/graphql","reqData":1654095200679,"requestType":"POST"},"service":"user-service"}
+{"level":"info","message":{"originURL":"/graphql","reqData":1654095204762,"requestType":"POST"},"service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654095226036,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/graphql","reqData":1654095249005,"requestType":"POST"},"service":"user-service"}
+{"level":"info","message":{"originURL":"/graphql","reqData":1654095249895,"requestType":"POST"},"service":"user-service"}
+{"level":"info","message":{"originURL":"/graphql","reqData":1654095255615,"requestType":"POST"},"service":"user-service"}
+{"level":"info","message":{"originURL":"/graphql","reqData":1654095256580,"requestType":"POST"},"service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654095528757,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/author?id=62890ef9ecfd69398ee75752","reqData":1654095539375,"requestType":"PUT"},"service":"user-service"}
+{"level":"info","message":{"originURL":"/graphql","reqData":1654095558465,"requestType":"POST"},"service":"user-service"}
+{"level":"info","message":{"originURL":"/graphql","reqData":1654095598493,"requestType":"POST"},"service":"user-service"}
+{"level":"info","message":{"originURL":"/graphql","reqData":1654095619465,"requestType":"POST"},"service":"user-service"}
+{"level":"info","message":{"originURL":"/graphql","reqData":1654095628448,"requestType":"POST"},"service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654095658737,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/graphql","reqData":1654095669080,"requestType":"POST"},"service":"user-service"}
+{"level":"info","message":{"originURL":"/graphql","reqData":1654095695487,"requestType":"POST"},"service":"user-service"}
+{"level":"info","message":{"originURL":"/graphql","reqData":1654095751598,"requestType":"POST"},"service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654096083605,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: age: Path `age` (-1) is less than minimum allowed value (16).","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654096087508,"requestType":"POST"},"service":"user-service"}
+{"level":"error","message":"Author validation failed: age: Path `age` (-1) is less than minimum allowed value (16).","service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654096101724,"requestType":"POST"},"service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654096365943,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/graphql","reqData":1654096395275,"requestType":"POST"},"service":"user-service"}
+{"level":"info","message":{"originURL":"/graphql","reqData":1654096441545,"requestType":"POST"},"service":"user-service"}
+{"level":"info","message":{"originURL":"/graphql","reqData":1654096458459,"requestType":"POST"},"service":"user-service"}
+{"level":"info","message":{"originURL":"/graphql","reqData":1654096528103,"requestType":"POST"},"service":"user-service"}
+{"level":"info","message":{"originURL":"/graphql","reqData":1654096551486,"requestType":"POST"},"service":"user-service"}
+{"level":"info","message":{"originURL":"/graphql","reqData":1654096567257,"requestType":"POST"},"service":"user-service"}
+{"level":"info","message":{"originURL":"/graphql","reqData":1654096578086,"requestType":"POST"},"service":"user-service"}
+{"level":"info","message":{"originURL":"/graphql","reqData":1654096579077,"requestType":"POST"},"service":"user-service"}
+{"level":"info","message":{"originURL":"/graphql","reqData":1654096580893,"requestType":"POST"},"service":"user-service"}
+{"level":"info","message":{"originURL":"/graphql","reqData":1654096597250,"requestType":"POST"},"service":"user-service"}
+{"level":"info","message":{"originURL":"/graphql","reqData":1654096597985,"requestType":"POST"},"service":"user-service"}
+{"level":"info","message":{"originURL":"/graphql","reqData":1654096598575,"requestType":"POST"},"service":"user-service"}
+{"level":"info","message":{"originURL":"/graphql","reqData":1654096666407,"requestType":"POST"},"service":"user-service"}
+{"level":"info","message":{"originURL":"/graphql","reqData":1654096674793,"requestType":"POST"},"service":"user-service"}
+{"level":"info","message":{"originURL":"/graphql","reqData":1654096686762,"requestType":"POST"},"service":"user-service"}
+{"level":"info","message":{"originURL":"/graphql","reqData":1654099104223,"requestType":"POST"},"service":"user-service"}
+{"level":"info","message":{"originURL":"/author","reqData":1654099125304,"requestType":"GET"},"service":"user-service"}
+{"level":"info","message":"find update","service":"user-service"}
+{"level":"info","message":{"originURL":"/graphql","reqData":1654099138035,"requestType":"POST"},"service":"user-service"}
+{"level":"info","message":{"originURL":"/author?id=62890ef9ecfd69398ee75752","reqData":1654099193041,"requestType":"PUT"},"service":"user-service"}
+{"level":"info","message":{"originURL":"/author?id=62890ef9ecfd69398ee75752","reqData":1654099198884,"requestType":"PUT"},"service":"user-service"}
+{"level":"info","message":{"originURL":"/author?id=62890ef9ecfd69398ee75752","reqData":1654099199556,"requestType":"PUT"},"service":"user-service"}
+{"level":"info","message":{"originURL":"/author?id=62890ef9ecfd69398ee75752","reqData":1654099200002,"requestType":"PUT"},"service":"user-service"}
+{"level":"info","message":{"originURL":"/graphql","reqData":1654099205307,"requestType":"POST"},"service":"user-service"}

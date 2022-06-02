@@ -116,3 +116,5 @@
 {"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
 {"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
 {"level":"error","message":"Author validation failed: family_name: Path `family_name` is required., first_name: Path `first_name` is required.","service":"user-service"}
+{"level":"error","message":"Author validation failed: age: Path `age` (-1) is less than minimum allowed value (16).","service":"user-service"}
+{"level":"error","message":"Author validation failed: age: Path `age` (-1) is less than minimum allowed value (16).","service":"user-service"}

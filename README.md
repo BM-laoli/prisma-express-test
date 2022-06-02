@@ -266,16 +266,372 @@ query {
 > 前面我就说过 ，之所以这个graphql的文档 难看，是因为它总是在用 你不懂的概念去解释另一个概念，干脆我们一次性把它 一五一十 说明白！
 
 1. 什么是 操作类型
+在graphql 中，一共有三种操作类型，查询、变更、订阅
+
+- 查询: query : 这个....非常的简单不过多介绍
+- 变更mutation： 主要是对数据的 create modify 和delete 操作
+- 订阅subscription： 主要是数据发生变化的时候，自动去推送
+
+```
+# 比如我们的查询
+query {
+  author {
+    id
+  }
+}
+```
 
 2. 对象类型 和 标量类型
+讲这两个概念之前我们先了解一下 ，一个http graphql 请求到达 之后，我们是如何解析和处理的。（这里我们举例说明query）
+首先graphQL服务接受query  -> 从这个root Query 开始查找 -> 找到 对象类型 （Object Type）的时候就要使用解析函数 Resolver 来获取其内容
+-> 发现解析器返回又是一个ObjectType 继续获取，--> 一直找啊找，知道找到标量类型（Scalar Type）结束获取，直到获取到最后一个标量类型
+
+用户在Schema 中定义的type 就是 对象类型，（解释一下什么是Schema，它是一种声明，有来声明graph 就能解析 你的query了  ）
+
+```js
+// 比如这样
+type User {
+  name: String!
+  age: Int
+}
+```
+
+标量类型，就是一些graphQL 内置的类型：String Int Float Boolean ID 等...也允许用户自定义标量
 
 3. 模式是什么Schema
+上面有聊到什么是Schema 并且大概介绍了一下，我们现在来看个例子🌰 下面的就是一个生产级别的Schema 它专门为graph 服务, 顺便提一嘴哈，在query 的时候graph 是并行的，在mutation 的时候是串行的。
+
+```js
+# src/schema.graphql
+
+# Query 入口
+type Query {
+    hello: String
+    users: [User]!
+    user(id: String): [User]!
+}
+
+# Mutation 入口
+type Mutation {
+    createUser(id: ID!, name: String!, email: String!, age: Int,gender: Gender): User!
+    updateUser(id: ID!, name: String, email: String, age: Int, gender: Gender): User!
+    deleteUser(id: ID!): User
+}
+
+# Subscription 入口
+type Subscription {
+    subsUser(id: ID!): User
+}
+
+type User implements UserInterface {
+    id: ID!
+    name: String!
+    age: Int
+    gender: Gender
+    email: String!
+}
+
+# 枚举类型
+enum Gender {
+    MAN
+    WOMAN
+}
+
+# 接口类型
+interface UserInterface {
+    id: ID!
+    name: String!
+    age: Int
+    gender: Gender
+}
+```
 
 4. 解析函数 Resolver
+实际上它就是一个函数，提供数据用的，比如现在我有这样的query 和这样的resolver 他们就是这样组合在来一起
+
+```js
+//  query 是你的Scheme
+query {
+  author
+}
+
+// 对应的Resolver
+Query: { 
+  author ( parent, args, context, info ) {
+    return .....
+  }
+}
+
+// 这里我们解释一下 这几个参数哈
+/*
+1. 参数1 ：当前上一个解析函数的返回值
+
+2. 参数2：查询中传入的参数
+
+3. 参数3：提供给所有解析器的上下文信息
+
+4. 参数4：一个保存与当前查询相关的字段特定信息以及 schema 详细信息的值
+*/
+```
 
 5. 请求的格式
+前面都是在说如何做如何做，偏向理论化了，现在我们来说说，客户端如何发一条http 请求到graphql service 呢？
+
+*如果你是GET 你可以这样*
+
+```
+http://myapi/graphql?query={me{name}}
+```
+
+*如果你是POST 你可以这样*
+
+```
+{
+  "query": "...",
+  "operationName": "...",
+  "variables": { "myVariable": "someValue", ... }
+}
+```
 
 ### 项目实践指南
+
+> 好啦，上面讲啦很多废话，讲啦很多理论的东西，现在我们先看看如何实际运用哈。首先这里说明一下，我们是基于已经构建好的REST API 进行的修改，如果你不晓得我这个API 是如何构建的，请移步看另一片文章，那里有详细的说明，它大概长这样
+
+*项目结构*
+![](https://cdn.nlark.com/yuque/0/2022/png/1627571/1654088573513-2b1e0e45-0c37-4868-a8f6-5c8cac22ad0d.png)
+
+*POST MAN*
+![](https://cdn.nlark.com/yuque/0/2022/png/1627571/1654088614087-b433cebe-de29-43ed-aa79-80e4fb4978a5.png)
+
+1. 首先我们开始我们项目第一步，工欲善必先利其器也，
+首先我们准备 graphql、express-graphql、graphql-tools，第一个是核心必须要的，第二个 是和express 配套的，第三个是一个tools 工具可以方便整理和管理你的 schema等内容
+
+2. 构建项目结构，我们新增一个文件用来存放 我们这个项目的shcema ,并且写入下面的 schema （query）
+
+```js
+//  /graphql/schema.js 去定义 schema
+// 我们先做 比较独立的模块 对 author 的 Query
+const typeDefs = /* GraphQL */ `
+  type Query {
+    author(id: String): Author
+    authors: [Author]!
+  }
+
+  type Author {
+    id: ID!
+    first_name: String
+    family_name: String
+    date_of_birth: String
+    date_of_death: String
+    age: Int
+  }
+`;
+
+module.exports = {
+  typeDefs: typeDefs,
+};
+
+//  /graphql/resolver 去定义resolver
+const { queryAuthor } = require('../service/authorService');
+const resolvers = {
+  Query: {
+    authors(parent, args, ctx, info) {
+      return queryAuthor({});
+    },
+    author(parent, args, ctx, info) {
+      const { id } = args;
+      return queryAuthor({ id: id });
+    },
+  },
+};
+
+module.exports = {
+  resolvers: resolvers,
+};
+
+//  /graphql/index 去定义 收口
+const { resolvers } = require('./resolvers');
+const { typeDefs } = require('./schema');
+const { makeExecutableSchema } = require('@graphql-tools/schema');
+//  特别注意 ⚠️  对于es6 使用  npx babel-node  index.js 去编译 部分esModule,
+
+const schema = makeExecutableSchema({
+  typeDefs,
+  resolvers,
+});
+
+module.exports = {
+  schema: schema,
+};
+
+//  /app.js  构建一个graphQL 路由
+++++
+const { graphqlHTTP } = require('express-graphql');
+const { schema } = require('./graphql');
+++++
+// 下面是单独的graphQL 路由
+app.use(
+  '/graphql',
+  graphqlHTTP({
+    schema,
+  }),
+);
+++++
+
+```
+
+下面的c-url
+
+```shell
+# 你如何请求呢？ 我们以postman 为例子 c-url 如下
+curl --location -g --request GET 'http://localhost:3000/graphql?query={authors {first_name  id  family_name 
+age }} ' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "first_name":"Ace",
+    "family_name":"Y",
+    "date_of_birth":"2022-05-21T15:40:50.926Z",
+    "date_of_death":"2022-05-21T15:40:50.926Z"
+}'
+
+# 带条件的查询
+curl --location -g --request GET 'http://localhost:3000/graphql?query={author(id: "62890ef9ecfd69398ee75752") { id }} ' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "first_name":"Ace",
+    "family_name":"Y",
+    "date_of_birth":"2022-05-21T15:40:50.926Z",
+    "date_of_death":"2022-05-21T15:40:50.926Z"
+}'
+```
+
+**关联查询如何构建？**
+> 我们还是以上面的get来说，这一次我们要获取 book 我们需要查询它的author ，这如何做呢？
+
+```js
+// 我们接着在原来的scheme 的地方添加一个book
+const typeDefs = /* GraphQL */ `
+  type Query {
+    author(id: String): Author
+    authors: [Author]!
+    books: [Book]
+  }
+
+  type Author {
+    id: ID!
+    first_name: String
+    family_name: String
+    date_of_birth: String
+    date_of_death: String
+    age: Int
+  }
+
+  type Book {
+    id: ID!
+    title: String
+    author: Author
+    summary: String
+    isbn: String
+  }
+`;
+
+// 然后我们在resolver 的时候同样的操作就好啦 其他不用变
+const { queryAuthor } = require('../service/authorService');
+const { queryBook } = require('../service/bookService');
+const resolvers = {
+  Query: {
+    authors(parent, args, ctx, info) {
+      return queryAuthor({});
+    },
+    books() {
+      queryBook({}).then((res) => {
+        console.log('--->', res);
+      });
+
+      return queryBook({}); // 关联查询交给 service来做
+    },
+  },
+};
+
+module.exports = {
+  resolvers: resolvers,
+};
+
+// 下面 是它的 c-curl
+curl --location -g --request GET 'http://localhost:3000/graphql?query={books { id summary author {  id first_name  } }} ' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "first_name":"Ace",
+    "family_name":"Y",
+    "date_of_birth":"2022-05-21T15:40:50.926Z",
+    "date_of_death":"2022-05-21T15:40:50.926Z"
+}'
+```
+
+3. mutation 变更数据
+上面我们主要是把graphQL 的query 都讲了一遍，接下来我们来说说 它的mutation, 比如我现在需要 创建名为xx 的author、  修改id = xxxx 的author的名称、以及删除 id 为xxx 的author
+
+```js
+// 关于变更要求统一在 mutation 下进行 我们来定义 schema 主要是新增来这样的一个 type
++++
+`
+  type Mutation {
+    createAuthor(first_name: String, family_name: String, age: Int): Author!
+    updateAuthor(
+      id: ID!
+      first_name: String
+      family_name: String
+      age: Int
+    ): Author!
+    deleteAuthorByID(id: ID!): Author!
+  }
+  `
+  +++
+
+// 然后需要去 resolver 里构建对应的方法
++++
+  Mutation: {
+    createAuthor: async (parent, args) => {
+      const { id, first_name, family_name, age } = args;
+      return await createAuthor({ id, first_name, family_name, age });
+    },
+    deleteAuthorByID: async (parent, args) => {
+      return await findAndDelete(args.id);
+    },
+    updateAuthor: async (parent, args) => {
+      const { id, first_name, family_name, age } = args;
+      const author = await queryAuthor({ id: id });
+      // 由于authorService 中使用 了 findByIdAndUpdate 它返回的是被修改前的模样
+      // 所以我们又去查了一遍
+      if (!author) {
+        throw new Error('查无此人');
+      }
+      await update(id, {
+        first_name,
+        family_name,
+        age,
+      });
+      return await queryAuthor({ id: id });
+    },
+  },
++++
+```
+
+在Postman 上，实际上在body 参数上是有快捷的 GraphQL 操作的，特别骚气的是 它可以 自动获取你的所有 schema 并且如果在你写的时候有自动提示，如果你写错啦，它还会自动报错，啊，这个功能还是香的啊，
+
+![](https://cdn.nlark.com/yuque/0/2022/png/1627571/1654097081546-fadd3474-13d2-418e-97e3-76dea8c4d793.png)
+
+下面我给了一个update的时候的 c-url供你体验
+
+```shell
+curl --location --request POST 'http://localhost:3000/graphql' \
+--header 'Content-Type: application/json' \
+--data-raw '{"query":"mutation {\n    updateAuthor(id:\"62890ef9ecfd69398ee75752\", first_name:\"Joney\",\n        family_name:\"joney\", age:23){\n        id\n        family_name\n    }\n}","variables":{}}'
+```
+
+4. 订阅数据变化
+
+> 这里主要是做了这样的一个操作：“我们实现了类似Job 的功能，发现 某个id 的author 中的age 改变后，打印一个log” （TODO 这是一个复杂的部分，因为如果是单机器性能有限，如果是多节点比如丢k8s上还会存在别的问题，因此如何做 才能满足，这是一个大话题，这里暂时按下不表）
 
 ## graphql
 
@@ -291,7 +647,6 @@ const { graphqlHTTP } = require('express-graphql');
 
 const { makeExecutableSchema } = require('@graphql-tools/schema')
 // 对于es6 使用  npx babel-node  index.js 去编译 部分esModule, 
-
 
 // -------------init------------- 
 const prisma = new prismaClint.PrismaClient()
@@ -343,5 +698,5 @@ curl --location --request POST 'http://localhost:3000/graphql' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "query": "query { allUsers { email } }"
-}'
+  }'
 ```

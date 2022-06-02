@@ -6,6 +6,10 @@ const createAuthor = async (data) => {
 };
 
 const queryAuthor = async (query) => {
+  if (query.id) {
+    const res = await AuthorModel.findById(query.id);
+    return res;
+  }
   const res = await AuthorModel.find(); // 查所有
   return res;
 };

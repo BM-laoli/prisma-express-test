@@ -2,6 +2,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const compression = require('compression');
 
+const { graphqlHTTP } = require('express-graphql');
+const { schema } = require('./graphql');
+
 const { logger } = require('./utils/logger');
 const { reqInfo } = require('./middleware/reqInfo');
 const author = require('./routes/author');
@@ -21,6 +24,14 @@ app.use('/author', author);
 app.use('/book', book);
 app.use('/genre', genre);
 app.use('/book-instance', bookInstance);
+
+// 下面是单独的graphQL 路由
+app.use(
+  '/graphql',
+  graphqlHTTP({
+    schema,
+  }),
+);
 
 // 设置一个路由，如果前面的都有问题，就到这里来处理错误
 app.use((err, req, res, next) => {
